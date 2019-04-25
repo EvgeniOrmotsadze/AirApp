@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_feature"
+        android:checkableBehavior="single">
+        <item android:id="@+id/navdrawer_item_map"
+            android:checked="true"
+            android:title="Switch to Georgian"/>
+    </group>
+    <group android:id="@+id/group_settings"
+        android:checkableBehavior="single">
+        <item android:id="@+id/navdrawer_item_settings"
+            android:title="Field 1"/>
+    </group>
+    <group android:id="@+id/group_settings2"
+        android:checkableBehavior="single">
+        <item android:id="@+id/navdrawer_item_settings2"
+            android:title="Field 2"/>
+    </group>
+    <group android:id="@+id/group_settings3"
+        android:checkableBehavior="single">
+        <item android:id="@+id/navdrawer_item_settings3"
+            android:title="Field 3"/>
+    </group>
+    <group android:id="@+id/group_settings4"
+        android:checkableBehavior="single">
+        <item android:id="@+id/navdrawer_item_settings4"
+            android:title="Field 3"/>
+    </group>
+</menu>

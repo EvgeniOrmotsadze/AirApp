@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="lightGreen" id="lightGreen">#3DDB6C</color>
+    <color name="chartFillColor">#e8ffef</color>
+    <color name="white">#EDF3EF</color>
+    <color name="showIcon">#A3AAA6</color>
+    <color name="selected">#B0BED8</color>
+    <color name="stationText">#63DBD0</color>
+    <color name="stationTextSelected">#19AFA1</color>
+    <color name="populationColor">#72DBECD5</color>
+</resources>
