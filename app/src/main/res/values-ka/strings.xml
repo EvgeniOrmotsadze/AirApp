@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Air Gov</string>
+    <string name="high_pollution">ქიმ. ელემენტი</string>
+    <string name="language">ინგლისურად</string>
+    <string name="toolbar_header">AIR.GOV.GE</string>
+    <string name="air_quality">ჰაერის ხარისი</string>
+    <string name="check_internet">გთხოვთ შეამოწმოთ ინტერნეტ კავშირი</string>
+    <string name="withouht_net_text">აპლიკაცია ჩაიტვირთა ინტერნეტის გარეშე</string>
+    <string name="no_data">NO DATA</string>
+    <string name="recomendations">რეკომენდაციები</string>
+    <string name="airQualityIndx">ხარისხის ინდექსი</string>
+    <string name="Pollutants">დაბინძურება</string>
+    <string name="time">დრო </string>
+    <string name="share">გაზიარება</string>
+</resources>

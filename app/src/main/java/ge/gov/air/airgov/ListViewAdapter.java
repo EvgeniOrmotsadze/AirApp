@@ -3,13 +3,16 @@ package ge.gov.air.airgov;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,13 +20,19 @@ import java.util.ArrayList;
 public class ListViewAdapter extends BaseAdapter {
 
     Activity activity;
-    ArrayList list = new ArrayList<>();
+    ArrayList<StationModel> list = new ArrayList<>();
     LayoutInflater layoutInflater = null;
+    boolean isGeorgian;
+    Context context;
+    String id;
 
-    public ListViewAdapter(Activity activity, ArrayList<String> customListDataModelArray){
+    public ListViewAdapter(Activity activity, ArrayList<StationModel> customListDataModelArray,boolean isGeorgian,String id){
         this.activity=activity;
+        context = activity.getApplicationContext();
         this.list = customListDataModelArray;
         layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.isGeorgian = isGeorgian;
+        this.id = id;
     }
 
     @Override
@@ -32,7 +41,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public StationModel getItem(int i) {
         return list.get(i);
     }
 
@@ -44,7 +53,8 @@ public class ListViewAdapter extends BaseAdapter {
 
     private static class ViewHolder{
         TextView stations;
-        LinearLayout layout;
+        TextView km;
+        RelativeLayout singleRow;
     }
 
     ViewHolder viewHolder = null;
@@ -63,7 +73,8 @@ public class ListViewAdapter extends BaseAdapter {
             // inflate list_rowcell for each row
             vi = layoutInflater.inflate(R.layout.single_row,null);
             viewHolder.stations = (TextView) vi.findViewById(R.id.first);
-            viewHolder.layout = vi.findViewById(R.id.hidden);
+            viewHolder.km = (TextView) vi.findViewById(R.id.km);
+            viewHolder.singleRow = vi.findViewById(R.id.single_row);
             holders.add(viewHolder);
             vi.setTag(viewHolder);
         }else {
@@ -71,13 +82,12 @@ public class ListViewAdapter extends BaseAdapter {
             holders.add(viewHolder);
         }
 
-        viewHolder.stations.setText(list.get(pos) + "");
 
-//        if((list.get(pos) + "").contains("Tbilisi - Vashlijvari")){
-//            viewHolder.stations.setBackgroundColor(Color.RED);
-//        }
-
-
+        viewHolder.singleRow.setBackgroundColor(Color.parseColor(list.get(pos).getColor()));
+        viewHolder.stations.setText(list.get(pos).getText());
+        viewHolder.km.setText(list.get(pos).getLocation());
+        if(list.get(pos).getId().equals(id))
+            vi.setBackgroundColor(Color.parseColor(list.get(pos).getColor()));
         return vi;
     }
 

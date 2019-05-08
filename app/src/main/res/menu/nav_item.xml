@@ -3,28 +3,28 @@
 
     <group android:id="@+id/group_feature"
         android:checkableBehavior="single">
-        <item android:id="@+id/navdrawer_item_map"
+        <item android:id="@+id/language"
             android:checked="true"
-            android:title="Switch to Georgian"/>
+            android:title="@string/language"/>
     </group>
     <group android:id="@+id/group_settings"
         android:checkableBehavior="single">
-        <item android:id="@+id/navdrawer_item_settings"
-            android:title="Field 1"/>
+        <item android:id="@+id/item_share"
+            android:title="@string/share"/>
     </group>
     <group android:id="@+id/group_settings2"
         android:checkableBehavior="single">
-        <item android:id="@+id/navdrawer_item_settings2"
-            android:title="Field 2"/>
+        <item android:id="@+id/recomendation"
+            android:title="@string/recomendations"/>
     </group>
     <group android:id="@+id/group_settings3"
         android:checkableBehavior="single">
-        <item android:id="@+id/navdrawer_item_settings3"
-            android:title="Field 3"/>
+        <item android:id="@+id/airQualityInx"
+            android:title="@string/airQualityIndx"/>
     </group>
     <group android:id="@+id/group_settings4"
         android:checkableBehavior="single">
-        <item android:id="@+id/navdrawer_item_settings4"
-            android:title="Field 3"/>
+        <item android:id="@+id/pollutant"
+            android:title="@string/Pollutants"/>
     </group>
 </menu>

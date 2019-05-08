@@ -6,9 +6,13 @@
     <color name="lightGreen" id="lightGreen">#3DDB6C</color>
     <color name="chartFillColor">#e8ffef</color>
     <color name="white">#EDF3EF</color>
+    <color name="red">#D14343</color>
+    <color name="black">#0A0E0A</color>
     <color name="showIcon">#A3AAA6</color>
-    <color name="selected">#B0BED8</color>
+    <color name="selected">#7C4343</color>
     <color name="stationText">#63DBD0</color>
     <color name="stationTextSelected">#19AFA1</color>
     <color name="populationColor">#72DBECD5</color>
+    <color name="lightgray">#D3D3D3</color>
+    <color name="actionBarColor">#3F56D5</color>
 </resources>

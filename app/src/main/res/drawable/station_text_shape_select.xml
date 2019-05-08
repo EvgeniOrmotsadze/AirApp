@@ -3,8 +3,8 @@
 
     <solid android:color="@color/stationTextSelected" />
     <corners
-        android:topLeftRadius="4dp"
-        android:topRightRadius="4dp"></corners>
+        android:topLeftRadius="8dp"
+        android:topRightRadius="8dp"></corners>
     <padding
         android:left="5dp"
         android:right="5dp"

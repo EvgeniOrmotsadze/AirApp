@@ -1,13 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/radar"
 
-    <item android:id="@+id/showList"
-        android:icon="@drawable/list"
-        android:iconTint="@color/chartFillColor"
+        android:icon="@drawable/radar"
         app:showAsAction="always"
-    />
-
+        android:iconTint="@color/chartFillColor"/>
 
 
 

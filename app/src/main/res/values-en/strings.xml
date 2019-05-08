@@ -10,6 +10,7 @@
     <string name="recomendations">Recommendations</string>
     <string name="airQualityIndx">Air Quality Index</string>
     <string name="Pollutants">Pollutants</string>
-    <string name="time">time</string>
+    <string name="time">time </string>
     <string name="share">Share</string>
+
 </resources>
