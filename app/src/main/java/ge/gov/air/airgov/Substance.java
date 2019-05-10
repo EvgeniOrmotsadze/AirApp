@@ -252,6 +252,7 @@ public class Substance {
         this.color = color;
     }
 
+
     @Override
     public String toString() {
         return "Substance{" +
@@ -259,6 +260,26 @@ public class Substance {
                 ", unit_ge='" + unit_ge + '\'' +
                 ", unit_en='" + unit_en + '\'' +
                 ", percentage=" + percentage +
+                ", airQuality='" + airQuality + '\'' +
+                ", value=" + value +
+                ", color='" + color + '\'' +
+                ", arrayList=" + arrayList +
+                ", data='" + data + '\'' +
+                ", goodTo=" + goodTo +
+                ", goodFrom=" + goodFrom +
+                ", fairTo=" + fairTo +
+                ", fairFrom=" + fairFrom +
+                ", moderateTo=" + moderateTo +
+                ", moderateFrom=" + moderateFrom +
+                ", poorTo=" + poorTo +
+                ", poorFrom=" + poorFrom +
+                ", veryPoorTo=" + veryPoorTo +
+                ", veryPoorFrom=" + veryPoorFrom +
+                ", goodColor='" + goodColor + '\'' +
+                ", fairColor='" + fairColor + '\'' +
+                ", moderateColor='" + moderateColor + '\'' +
+                ", poorColor='" + poorColor + '\'' +
+                ", veryPoorColor='" + veryPoorColor + '\'' +
                 '}';
     }
 }

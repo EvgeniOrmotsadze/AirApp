@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="lightGreen" id="lightGreen">#3DDB6C</color>
-    <color name="chartFillColor">#e8ffef</color>
-    <color name="white">#EDF3EF</color>
+    <color name="chartFillColor">#FFFFFF</color>
+    <color name="white">#F7FAF9</color>
     <color name="red">#D14343</color>
     <color name="black">#0A0E0A</color>
     <color name="showIcon">#A3AAA6</color>

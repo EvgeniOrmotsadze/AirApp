@@ -42,7 +42,7 @@
                     android:text="@string/toolbar_header"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:fontFamily="sans-serif-medium"/>
+                    android:fontFamily="@font/sofia_pro_bold"/>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -91,6 +91,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:layout_margin="8dp"
+                            android:fontFamily="sans-serif-condensed-medium"
                             android:textStyle="bold"
                             android:textSize="40dp"
                             android:id="@+id/air_condition"
@@ -104,6 +105,7 @@
                             android:layout_gravity="center">
                             <TextView
                                 android:layout_marginTop="20dp"
+                                android:fontFamily="@font/sofia_pro_bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
@@ -113,6 +115,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/sofia_pro_bold"
                                 android:layout_alignParentRight="true"
                                 android:id="@+id/element_name"
                                 android:textAlignment="center"
@@ -125,6 +128,7 @@
                             android:id="@+id/main_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_bold"
                             android:layout_gravity="center"
                             android:textColor="@color/white"
                             android:textStyle="bold"
@@ -136,6 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:textSize="15dp"
+                            android:fontFamily="@font/sofia_pro_bold"
                             android:textColor="@color/white"
                             android:text="ug/m3"/>
                     </LinearLayout>
@@ -184,6 +189,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textStyle="bold"
+                                        android:fontFamily="@font/sofia_pro_medium"
                                         android:id="@+id/time_ago_v"
                                         android:layout_marginTop="10dp"
                                         android:text="22s ago" />
@@ -192,6 +198,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:id="@+id/station_address"
+                                        android:fontFamily="@font/sofia_pro_medium"
                                         android:layout_alignParentLeft="true"
                                         android:layout_marginTop="10dp"
                                         android:text="Tbilisi, Tsereteli str." />

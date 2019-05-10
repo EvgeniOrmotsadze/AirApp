@@ -20,7 +20,7 @@ public class ChartMarker extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        Log.d("logger ", e.toString());
+        Log.d("loggers ", e.toString());
     }
 
     @Override

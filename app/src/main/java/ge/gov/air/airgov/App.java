@@ -68,10 +68,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.ChartHighlighter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.MPPointD;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import org.json.JSONArray;
@@ -280,51 +282,37 @@ public class App extends AppCompatActivity implements LocationListener {
     private void displayChart() {
 
             chart = (LineChart) findViewById(R.id.lineChart1);
-
-
             chart.getDescription().setEnabled(false);
 
-            // enable touch gestures
-            //  chart.setTouchEnabled(true);
-
-            // chart.setDragDecelerationFrictionCoef(0.9f);
-
-            // enable scaling and dragging
-            chart.setDragEnabled(true);
             chart.setScaleEnabled(true);
             chart.setDrawGridBackground(false);
             chart.setHighlightPerDragEnabled(false);
             // if disabled, scaling can be done on x- and y-axis separately
             chart.setPinchZoom(true);
-
+            chart.setDoubleTapToZoomEnabled(false);
+            chart.setDragDecelerationEnabled(true);
+            chart.setDragDecelerationFrictionCoef(0.88f);
             // set an alternative background color
             chart.setBackgroundColor(Color.parseColor(currentLayoutColor));
             chart.getAxisLeft().setDrawGridLines(false);
             chart.getXAxis().setDrawGridLines(false);
             chart.setBorderColor(ContextCompat.getColor(this, R.color.chartFillColor));
 
-
             ArrayList<Entry> entries = new ArrayList<>();
             final String[] months = new String[chartDataList.size()];
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd:hh.mm.ss");
 
             if(isGeorgian)
                 changeLanguage("en");
             for (int i = 0; i < chartDataList.size(); i++) {
                 DecimalFormat df = new DecimalFormat("##.##");
-
                 String formatted = df.format(chartDataList.get(i).getVal());
-                Log.d("numbers",chartDataList.get(i).getVal() + "");
-                Log.d("number",formatted);
                 double formattedDouble = 0;
                 try {
                      formattedDouble = Double.parseDouble(formatted);
-
                 }catch (NumberFormatException ex){
-//                    df = new DecimalFormat("#,##");
-//                    formatted = df.format(chartDataList.get(i).getVal());
-//                    formattedDouble = Double.parseDouble(formatted);
+                    df = new DecimalFormat("#,##");
+                    formatted = df.format(chartDataList.get(i).getVal());
+                    formattedDouble = Double.parseDouble(formatted);
                 }
                 entries.add(new Entry(i, (float) formattedDouble));
                 months[i] = (chartDataList.get(i).getDate().substring(11,16));
@@ -341,14 +329,10 @@ public class App extends AppCompatActivity implements LocationListener {
             dataSet.setFillColor(ContextCompat.getColor(this, R.color.chartFillColor));
             dataSet.setDrawFilled(true);
             dataSet.setDrawValues(false);
-            dataSet.setCircleRadius(3f);
-            dataSet.setLineWidth(2f);
-            dataSet.setDrawCircles(true);
+            dataSet.setLineWidth(3f);
+            dataSet.setDrawCircles(false);
             dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            dataSet.setDrawCircles(true);
-            dataSet.setDrawHorizontalHighlightIndicator(false);
-            dataSet.setDrawVerticalHighlightIndicator(false);
-            dataSet.setDrawHighlightIndicators(true);
+            dataSet.setDrawHighlightIndicators(false);
 
             //****
             // Controlling X axis
@@ -356,6 +340,7 @@ public class App extends AppCompatActivity implements LocationListener {
             // Set the xAxis position to bottom. Default is top
             xAxis.setPosition(XAxis.XAxisPosition.TOP);
             //Customizing x axis value
+
 
 
             IAxisValueFormatter formatter = new IAxisValueFormatter() {
@@ -369,12 +354,12 @@ public class App extends AppCompatActivity implements LocationListener {
             xAxis.setTextColor(ContextCompat.getColor(this, R.color.chartFillColor));
             xAxis.setGridColor(ContextCompat.getColor(this, R.color.chartFillColor));
             xAxis.setDrawAxisLine(false);
-            //***
+
+                //***
             // Controlling right side of y axis
             YAxis yAxisRight = chart.getAxisRight();
             yAxisRight.setEnabled(false);
 
-            //***
             // Controlling left side of y axis
             YAxis yAxisLeft = chart.getAxisLeft();
             yAxisLeft.setGranularity(1f);
@@ -389,90 +374,48 @@ public class App extends AppCompatActivity implements LocationListener {
                 chart.setData(null);
 
 
-            //   ChartMarker chartMarker = new ChartMarker(this);
-            //  chart.setMarker(chartMarker);
+
+            ChartMarker chartMarker = new ChartMarker(this);
+            chart.setMarker(chartMarker);
             chart.setDrawMarkers(true);
-            //  chart.setVisibleXRange(0,10);
+            //set default highlight
+            Highlight h = new Highlight((float)chartDataList.size()-1, (float) chartDataList.get(chartDataList.size()-1).getVal(), 0);
+            chart.highlightValue(h);
+
             chart.animateX(1000, Easing.EasingOption.EaseInBounce);
-            // chart.moveViewToX(10);
             chart.invalidate();
+
+            chart.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent me) {
+                    float tappedX = me.getX();
+                    float tappedY = me.getY();
+                    MPPointD point = chart.getTransformer(YAxis.AxisDependency.LEFT).getValuesByTouchPoint(tappedX, tappedY);
+                    int current = (int) point.x;
+                    if(current >= 0 && current < chartDataList.size()) {
+                        performedClicking(current);
+                        Highlight h = new Highlight((float) point.x, (float) chartDataList.get(current).getVal(), 0);
+                        chart.highlightValue(h);
+                        displayData();
+                    }
+                    return true;
+                }
+            });
+
 
 
         //    setOnGestureTouch();
-            setListenerOnChart();
+           // setListenerOnChart();
     }
 
-    private void setOnGestureTouch() {
-        chart.setOnChartGestureListener(new OnChartGestureListener() {
-            @Override
-            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
 
-            }
-
-            @Override
-            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-
-            }
-
-            @Override
-            public void onChartLongPressed(MotionEvent me) {
-
-            }
-
-            @Override
-            public void onChartDoubleTapped(MotionEvent me) {
-
-            }
-
-            @Override
-            public void onChartSingleTapped(MotionEvent me) {
-
-            }
-
-            @Override
-            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-
-            //    Log.d("xxxxx",me1.get +" ");
-                Toast.makeText(getApplicationContext(), me1.toString() + " " + me2.toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-
-            }
-
-            @Override
-            public void onChartTranslate(MotionEvent me, float dX, float dY) {
-                Log.d("events", me.toString() + " x " + dY);
-            }
-        });
-    }
 
     private void setListenerOnChart(){
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                int current = (int) e.getX();
-                currentValueScreen = chartDataList.get(current).getVal();
-                setTimeAgoOnTextView(chartDataList.get(current).getDate().substring(11,16));
-                if(currentValueScreen > currentSubstance.getGoodFrom() && currentValueScreen <= currentSubstance.getGoodTo()){
-                    currentLayoutColor = currentSubstance.getGoodColor();
-                    airQuality = isGeorgian? "კარგი" : "GOOD";
-                }else if(currentValueScreen > currentSubstance.getFairFrom() && currentValueScreen <= currentSubstance.getFairTo()){
-                    currentLayoutColor = currentSubstance.getFairColor();
-                    airQuality = isGeorgian? "არაუშავს:)" : "FAIR";
-                }else if(currentValueScreen > currentSubstance.getModerateFrom() && currentValueScreen <= currentSubstance.getModerateTo()){
-                    currentLayoutColor = currentSubstance.getModerateColor();
-                    airQuality = isGeorgian? "საშუალო" : "MODERATE";
-                }else if(currentValueScreen > currentSubstance.getPoorFrom() && currentValueScreen <= currentSubstance.getPoorTo()){
-                    currentLayoutColor = currentSubstance.getPoorColor();
-                    airQuality =  isGeorgian? "ცუდი" : "POOR";
-                }else if(currentValueScreen > currentSubstance.getVeryPoorFrom() && currentValueScreen <= currentSubstance.getVeryPoorTo()){
-                    currentLayoutColor = currentSubstance.getVeryPoorColor();
-                    airQuality = isGeorgian? "ძალიან ცუდი" : "VERY POOR";
-                }
-
+                performedClicking((int)e.getX());
                 displayData();
             }
 
@@ -483,11 +426,35 @@ public class App extends AppCompatActivity implements LocationListener {
         });
     }
 
+
+    private void performedClicking(int x){
+        int current = x;
+        currentValueScreen = chartDataList.get(current).getVal();
+        setTimeAgoOnTextView(chartDataList.get(current).getDate().substring(11,16));
+        if(currentValueScreen > currentSubstance.getGoodFrom() && currentValueScreen <= currentSubstance.getGoodTo()){
+            currentLayoutColor = currentSubstance.getGoodColor();
+            airQuality = isGeorgian? "ძალიან კარგი" : "Good";
+        }else if(currentValueScreen > currentSubstance.getFairFrom() && currentValueScreen <= currentSubstance.getFairTo()){
+            currentLayoutColor = currentSubstance.getFairColor();
+            airQuality = isGeorgian? "კარგი" : "Fair";
+        }else if(currentValueScreen > currentSubstance.getModerateFrom() && currentValueScreen <= currentSubstance.getModerateTo()){
+            currentLayoutColor = currentSubstance.getModerateColor();
+            airQuality = isGeorgian? "საშუალო" : "Moderate";
+        }else if(currentValueScreen > currentSubstance.getPoorFrom() && currentValueScreen <= currentSubstance.getPoorTo()){
+            currentLayoutColor = currentSubstance.getPoorColor();
+            airQuality =  isGeorgian? "ცუდი" : "Poor";
+        }else if(currentValueScreen > currentSubstance.getVeryPoorFrom() && currentValueScreen <= currentSubstance.getVeryPoorTo()){
+            currentLayoutColor = currentSubstance.getVeryPoorColor();
+            airQuality = isGeorgian? "ძალიან ცუდი" : "Very Poor";
+        }
+
+    }
+
     private void setTimeAgoOnTextView(String time){
         timeAgo.setText(getString(R.string.time) + " " + time);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private void displayData() {
    //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
@@ -752,23 +719,23 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
             if(lastData > goodFrom && lastData < goodTo){
-                airQuality = isGeorgian? "ძალიან კარგი" : "GOOD";
+                airQuality = isGeorgian? "ძალიან კარგი" : "Good";
                 currentLayoutColor = arrIndexObj.getString("good_color");
                 percentOfValue = lastData * 100/goodTo;
             }else if(lastData > fair_from && lastData < fair_to){
-                airQuality = isGeorgian? "კარგი" : "FAIR";
+                airQuality = isGeorgian? "კარგი" : "Fair";
                 currentLayoutColor = arrIndexObj.getString("fair_color");
                 percentOfValue = lastData * 100/fair_to;
             }else if(lastData > moderate_from && lastData < moderate_to){
-                airQuality = isGeorgian? "საშუალო" : "MODERATE";
+                airQuality = isGeorgian? "საშუალო" : "Moderate";
                 currentLayoutColor = arrIndexObj.getString("moderate_color");
                 percentOfValue = lastData * 100/ moderate_to;
             }else if(lastData > poor_from &&  lastData < poor_to){
-                airQuality = isGeorgian? "ცუდი" : "POOR";
+                airQuality = isGeorgian? "ცუდი" : "Poor";
                 currentLayoutColor = arrIndexObj.getString("poor_color");
                 percentOfValue = lastData * 100/poor_to;
             }else if(lastData > very_poor_from && lastData < very_poor_to){
-                airQuality = isGeorgian? "ძალიან ცუდი" : "VERY POOR";
+                airQuality = isGeorgian? "ძალიან ცუდი" : "Very Poor";
                 currentLayoutColor = arrIndexObj.getString("very_poor_color");
                 percentOfValue = lastData * 100/very_poor_to;
             }
@@ -921,6 +888,7 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     public void onProviderEnabled(String provider) {
 
+
     }
 
 
@@ -953,48 +921,56 @@ public class App extends AppCompatActivity implements LocationListener {
                     reload();
 
                 }else if(item.getItemId() == R.id.item_share) {
+                    drawerLayout.closeDrawer(Gravity.LEFT, false);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            View screenView = findViewById(R.id.showTextLayout).getRootView();
+                            screenView.setDrawingCacheEnabled(true);
+                            Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+                            screenView.setDrawingCacheEnabled(false);
 
-                    View screenView = findViewById(R.id.showTextLayout).getRootView();
-                    screenView.setDrawingCacheEnabled(true);
-                    Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-                    screenView.setDrawingCacheEnabled(false);
+                            try {
+                                File cachePath = new File(getApplication().getCacheDir(), "images");
+                                cachePath.mkdirs(); // don't forget to make the directory
+                                FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                                stream.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
-                    try {
-                        File cachePath = new File(getApplication().getCacheDir(), "images");
-                        cachePath.mkdirs(); // don't forget to make the directory
-                        FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        stream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                            File imagePath = new File(getApplication().getCacheDir(), "images");
+                            File newFile = new File(imagePath, "image.png");
+                            Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "ge.gov.air.airgov", newFile);
 
-                    File imagePath = new File(getApplication().getCacheDir(), "images");
-                    File newFile = new File(imagePath, "image.png");
-                    Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "ge.gov.air.airgov", newFile);
+                            if (contentUri != null) {
+                                Intent shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+                                shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                                startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                            }
+                        }
+                    }, 500);
 
-                    if (contentUri != null) {
-                        Intent shareIntent = new Intent();
-                        shareIntent.setAction(Intent.ACTION_SEND);
-                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
-                        shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
-                        startActivity(Intent.createChooser(shareIntent, "Choose an app"));
-                    }
+
                 }else if(item.getItemId() == R.id.recomendation){
                     Intent intent = new Intent(App.this, WebViewAct.class);
-                    String lng = isGeorgian ? "" : ENG;
-                    intent.putExtra("url", "http://air.gov.ge/" + lng + "/pages/18/12");
+                    String url = isGeorgian ? "http://air.gov.ge/pages/18/12" : "http://air.gov.ge/en/pages/18/12";
+                    intent.putExtra("url", url+"?no_header_footer=true");
                     startActivity(intent);
                 }else if(item.getItemId() == R.id.airQualityInx){
                     Intent intent = new Intent(App.this, WebViewAct.class);
-                    String lng = isGeorgian ? "" : ENG;
-                    intent.putExtra("url", "http://air.gov.ge/" + lng + "/pages/11/11");
+                    String url = isGeorgian ? "http://air.gov.ge/pages/11/11" : "http://air.gov.ge/en/pages/11/11";
+                    intent.putExtra("url", url +"?no_header_footer=true");
                     startActivity(intent);
                 }else  if(item.getItemId() == R.id.pollutant){
                     Intent intent = new Intent(App.this, WebViewAct.class);
-                    String lng = isGeorgian ? "" : ENG;
-                    intent.putExtra("url", "http://air.gov.ge/" + lng + "/pages/13/13");
+                    String url = isGeorgian ? "http://air.gov.ge/pages/13/13" : "http://air.gov.ge/en/pages/13/13";
+                    intent.putExtra("url", url + "?no_header_footer=true");
                     startActivity(intent);
                 }
                 return true;
@@ -1030,8 +1006,16 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Intent intent = new Intent(App.this, LoadActivity.class);
-        startActivity(intent);
+        SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
+        boolean previousWasWeb = prefs2.getBoolean("wasWebView", false);
+        if (!previousWasWeb){
+            Intent intent = new Intent(App.this, LoadActivity.class);
+            startActivity(intent);
+        }else {
+            SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+            editor.putBoolean("wasWebView", false);
+            editor.apply();
+        }
     }
 
     @Override

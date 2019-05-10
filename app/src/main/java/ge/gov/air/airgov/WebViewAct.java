@@ -1,5 +1,6 @@
 package ge.gov.air.airgov;
 
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class WebViewAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web_view);
 
@@ -27,7 +29,9 @@ public class WebViewAct extends AppCompatActivity {
         setTitle(null);
         myToolbar.setBackgroundColor(getResources().getColor(R.color.white));
 
-
+        SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+        editor.putBoolean("wasWebView",true);
+        editor.apply();
 
         String url = this.getIntent().getStringExtra("url");
         webView.loadUrl(url);

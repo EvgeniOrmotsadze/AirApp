@@ -152,7 +152,7 @@ public class StationActivity extends AppCompatActivity {
     private ArrayList<StationModel> getStationList(String data) throws JSONException {
         ArrayList<StationModel> list = new ArrayList<>();
 
-        Log.d("jsonArr",data);
+
         JSONArray jsonArray = new JSONArray(data);
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -183,7 +183,6 @@ public class StationActivity extends AppCompatActivity {
             }
             stationModel.setColor(col);
             list.add(stationModel);
-
         }
         return list;
     }
@@ -197,14 +196,18 @@ public class StationActivity extends AppCompatActivity {
 
     private String readStationEquipment(JSONArray jsonArray) throws JSONException {
         ArrayList<Substance> arrayList = new ArrayList<>();
+
         for (int i = 0; i < jsonArray.length(); i++) {
             String st = jsonArray.get(i).toString();
             arrayList.add(getStationSubstance(st));
         }
+
+
         Substance maxSubstance = arrayList.get(0);
         for(int i = 0; i < arrayList.size(); i++){
-            if(substanceCompare(arrayList.get(i), maxSubstance) > 0 )
+            if(substanceCompare(arrayList.get(i), maxSubstance) > 0 ) {
                 maxSubstance = arrayList.get(i);
+            }
         }
         return maxSubstance.getColor();
     }
@@ -238,6 +241,7 @@ public class StationActivity extends AppCompatActivity {
         } else {
             secondWeight = 4;
         }
+
 
         if (firstWeight > secondWeight) {
             return 1;
@@ -294,8 +298,9 @@ public class StationActivity extends AppCompatActivity {
             });
 
 
+
+
             double lastData = listData.get(listData.size() - 1).getVal();
-            Log.d("yesdta",lastData +" " + substance1.toString());
             substance1.setValue(lastData);
             JSONArray airIndexArr = substance.getJSONArray("airqualityindexlevel_set");
             JSONObject arrIndexObj = airIndexArr.getJSONObject(0);
@@ -317,24 +322,37 @@ public class StationActivity extends AppCompatActivity {
 
 
 
-            if(lastData > goodFrom && lastData < goodTo){
+            if(lastData > goodFrom && lastData <= goodTo){
                 subsColor = arrIndexObj.getString("good_color");
                 //  percentOfValue = lastData * 100/goodTo;
-            }else if(lastData > fair_from && lastData < fair_to){
+            }else if(lastData > fair_from && lastData <= fair_to){
                 subsColor = arrIndexObj.getString("fair_color");
                 // percentOfValue = lastData * 100/fair_to;
-            }else if(lastData > moderate_from && lastData < moderate_to){
+            }else if(lastData > moderate_from && lastData <= moderate_to){
                 subsColor = arrIndexObj.getString("moderate_color");
                 //percentOfValue = lastData * 100/ moderate_to;
-            }else if(lastData > poor_from &&  lastData < poor_to){
+            }else if(lastData > poor_from &&  lastData <= poor_to){
                 subsColor = arrIndexObj.getString("poor_color");
                 //percentOfValue = lastData * 100/poor_to;
-            }else if(lastData > very_poor_from && lastData < very_poor_to){
+            }else if(lastData > very_poor_from && lastData <= very_poor_to){
                 subsColor = arrIndexObj.getString("very_poor_color");
                 //percentOfValue = lastData * 100/very_poor_to;
             }
+            substance1.setGoodFrom(goodFrom);
+            substance1.setGoodTo(goodTo);
+            substance1.setFairFrom(fair_from);
+            substance1.setFairTo(fair_to);
+            substance1.setModerateFrom(moderate_from);
+            substance1.setModerateTo(moderate_to);
+            substance1.setPoorFrom(poor_from);
+            substance1.setPoorTo(poor_to);
+            substance1.setVeryPoorFrom(very_poor_from);
+            substance1.setVeryPoorTo(very_poor_to);
         }
+
         substance1.setColor(subsColor);
+
+
         return substance1;
     }
 

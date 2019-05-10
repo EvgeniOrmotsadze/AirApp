@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:fontFamily="@font/sofia_pro_bold"
         android:textSize="18dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:text="AIR.GOV.GE" />
