@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Air Gov</string>
-    <string name="high_pollution">ქიმ. ელემენტი</string>
+    <string name="high_pollution">დამბინძურებელი</string>
     <string name="language">ინგლისურად</string>
     <string name="toolbar_header">AIR.GOV.GE</string>
     <string name="air_quality">ჰაერის ხარისი</string>

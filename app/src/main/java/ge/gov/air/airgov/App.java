@@ -1,14 +1,9 @@
 package ge.gov.air.airgov;
 
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -18,7 +13,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +21,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
@@ -36,7 +29,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -45,17 +37,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,44 +55,26 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.highlight.ChartHighlighter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.ChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.MPPointD;
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 public class App extends AppCompatActivity implements LocationListener {
 
@@ -230,7 +199,7 @@ public class App extends AppCompatActivity implements LocationListener {
             SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
             data = prefs2.getString("data",null);
         }
-        Log.d("datas",data);
+
         try {
             readStations(data);
         } catch (JSONException e) {
@@ -240,6 +209,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
         currentSubstance = getMaxPopulationSubstance();
+
         displayData();
 
 
@@ -368,19 +338,20 @@ public class App extends AppCompatActivity implements LocationListener {
             yAxisLeft.setDrawAxisLine(true);
             // Setting Data
             LineData data = new LineData(dataSet);
-            if(chartDataList.size() > 0)
+            if(chartDataList.size() > 0) {
                 chart.setData(data);
-            else
+                ChartMarker chartMarker = new ChartMarker(this);
+                chart.setMarker(chartMarker);
+                chart.setDrawMarkers(true);
+                //set default highlight
+                Highlight h = new Highlight((float)chartDataList.size()-1, (float) chartDataList.get(chartDataList.size()-1).getVal(), 0);
+                chart.highlightValue(h);
+
+            }else {
                 chart.setData(null);
+            }
 
 
-
-            ChartMarker chartMarker = new ChartMarker(this);
-            chart.setMarker(chartMarker);
-            chart.setDrawMarkers(true);
-            //set default highlight
-            Highlight h = new Highlight((float)chartDataList.size()-1, (float) chartDataList.get(chartDataList.size()-1).getVal(), 0);
-            chart.highlightValue(h);
 
             chart.animateX(1000, Easing.EasingOption.EaseInBounce);
             chart.invalidate();
@@ -458,6 +429,8 @@ public class App extends AppCompatActivity implements LocationListener {
     private void displayData() {
    //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
+        Log.d("curColo",currentLayoutColor);
+
         showTextLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
         airQualityTextView.setText(airQuality);
         mainTextViewCube.setText(currentValueUnit);
@@ -494,6 +467,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
     private Substance getMaxPopulationSubstance() {
         Substance max = stationSubstance.get(0);
+        Log.d("maxSub", max.toString());
         currentLayoutColor = max.getColor();
         textOfCenter = max.getName();
         currentValueScreen = max.getValue();
@@ -624,7 +598,6 @@ public class App extends AppCompatActivity implements LocationListener {
         }
 
         currentDistanceInMeter = distanceInMeters;
-
         return station;
     }
 
@@ -689,8 +662,9 @@ public class App extends AppCompatActivity implements LocationListener {
         substance1.setVeryPoorFrom(very_poor_from);
 
 
-        if(lastDataHour.length() > 0) {
 
+        if(lastDataHour.length() > 0) {
+            Log.d("gaagr","yes");
             for(int i = 0; i < lastDataHour.length(); i++){
 
                 PointXY pointXY = new PointXY();
@@ -699,21 +673,23 @@ public class App extends AppCompatActivity implements LocationListener {
                 listData.add(pointXY);
             }
 
+            Log.d("gaagr","yes");
             Collections.sort(listData, new Comparator<PointXY>() {
                 DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
                 @Override
                 public int compare(PointXY o1, PointXY o2) {
                     try {
                         return f.parse(o1.getDate()).compareTo(f.parse(o2.getDate()));
-                    } catch (ParseException e) {
-                        throw new IllegalArgumentException(e);
+                    }catch (ParseException e){
+
                     }
+                    return 0;
                 }
             });
 
-
             double lastData = listData.get(listData.size() - 1).getVal();
             currentValueScreen = lastData;
+            Log.d("currV",currentValueScreen + "");
 
             substance1.setValue(lastData);
 
@@ -1003,10 +979,18 @@ public class App extends AppCompatActivity implements LocationListener {
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("rsumed","res");
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
         SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
+        Log.d("restarted","res");
         boolean previousWasWeb = prefs2.getBoolean("wasWebView", false);
         if (!previousWasWeb){
             Intent intent = new Intent(App.this, LoadActivity.class);

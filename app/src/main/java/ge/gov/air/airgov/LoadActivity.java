@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -30,17 +31,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class LoadActivity extends AppCompatActivity {
 
     String data;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,37 +50,69 @@ public class LoadActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.internet_conn);
         textView.setVisibility(View.GONE);
 
-        if (!isConnected(getApplicationContext())) {
-            Intent i = new Intent(LoadActivity.this, DetectConnection.class);
-            overridePendingTransition(0, 0);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(i);
-        } else {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            Log.d("datetime",now.toString());
+    //    ActivityCompat.requestPermissions(LoadActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
-            LocalDateTime yesterday = now.minusDays(1);
-            try {
-                String nows = now.toString().substring(0,now.toString().length()-4);
-                String yes = yesterday.toString().substring(0,yesterday.toString().length()-4);
-                Log.d("link","http://air.gov.ge/api/get_data_1hour/?from_date_time=" + yes + "&to_date_time=" + nows+ "&station_code=all&municipality_id=all&substance=all&format=json");
 
-                new HttpAsyncTask().execute("http://air.gov.ge/api/get_data_1hour/?from_date_time=" + yes + "&to_date_time=" + nows + "&station_code=all&municipality_id=all&substance=all&format=json").get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+        SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
+        long lastTime = prefs2.getLong("lastTime",-1);
+
+
+        Date dt = new Date();
+
+        if(lastTime == -1){
+
+            lastTime = dt.getTime();
+            SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+            editor.putLong("lastTime", new Date().getTime());
+            editor.apply();
+        }
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+
+        Date lst = new Date(lastTime);
+        Date nowTime = new Date();
+
+        if(!lst.before(new Date(nowTime.getTime() - (20 * 60000))) && data != null){
+            Intent intent = new Intent(LoadActivity.this, App.class);
+            //        intent.putExtra("currentStation","");
+            startActivity(intent);
+        }else {
+
+            SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+            editor.putLong("lastTime", new Date().getTime());
+            editor.apply();
+
+            if (!isConnected(getApplicationContext())) {
+                Intent i = new Intent(LoadActivity.this, DetectConnection.class);
+                overridePendingTransition(0, 0);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(i);
+            } else {
+                Date nowDate = new Date();
+                String formatFirst = df.format(nowDate);
+
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(nowDate);
+                cal.add(Calendar.DATE, -1);
+                Date yesterday = cal.getTime();
+
+                String formatSecond = df.format(yesterday);
+                Log.d("dates","first " + formatFirst + " " + formatSecond);
+
+                try {
+                    Log.d("link", "http://air.gov.ge/api/get_data_1hour/?from_date_time=" + formatSecond + "&to_date_time=" + formatFirst + "&station_code=all&municipality_id=all&substance=all&format=json");
+                    new HttpAsyncTask().execute("http://air.gov.ge/api/get_data_1hour/?from_date_time=" + formatSecond + "&to_date_time=" + formatFirst + "&station_code=all&municipality_id=all&substance=all&format=json").get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
 
-    public boolean checkLocationPermission() {
-        String permission = "android.permission.ACCESS_FINE_LOCATION";
-        int res = this.checkCallingOrSelfPermission(permission);
-        return (res == PackageManager.PERMISSION_GRANTED);
-    }
 
 
     @Override
