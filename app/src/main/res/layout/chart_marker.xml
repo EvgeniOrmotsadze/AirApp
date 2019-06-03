@@ -6,6 +6,7 @@
 
     <ImageView
         android:background="@drawable/dot"
+        android:backgroundTint="@color/showIcon"
         android:layout_width="16dp"
         android:layout_height="16dp"
         />

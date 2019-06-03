@@ -50,8 +50,6 @@ public class LoadActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.internet_conn);
         textView.setVisibility(View.GONE);
 
-    //    ActivityCompat.requestPermissions(LoadActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
 
         SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
         long lastTime = prefs2.getLong("lastTime",-1);
@@ -98,7 +96,6 @@ public class LoadActivity extends AppCompatActivity {
                 Date yesterday = cal.getTime();
 
                 String formatSecond = df.format(yesterday);
-                Log.d("dates","first " + formatFirst + " " + formatSecond);
 
                 try {
                     Log.d("link", "http://air.gov.ge/api/get_data_1hour/?from_date_time=" + formatSecond + "&to_date_time=" + formatFirst + "&station_code=all&municipality_id=all&substance=all&format=json");
@@ -112,31 +109,13 @@ public class LoadActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    Toast.makeText(this, "Without Location App'll show random station", Toast.LENGTH_LONG).show();
-                }
-                Intent intent = new Intent(LoadActivity.this, App.class);
-                intent.putExtra("data", data);
-                //         intent.putExtra("currentStation","");
-                startActivity(intent);
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
+    public void onBackPressed() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
-
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
@@ -152,8 +131,11 @@ public class LoadActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
             editor.putString("data", result);
             editor.apply();
-            ActivityCompat.requestPermissions(LoadActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
+            Intent intent = new Intent(LoadActivity.this, App.class);
+            intent.putExtra("data", data);
+            //         intent.putExtra("currentStation","");
+            startActivity(intent);
+       //     ActivityCompat.requestPermissions(LoadActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
     }
 

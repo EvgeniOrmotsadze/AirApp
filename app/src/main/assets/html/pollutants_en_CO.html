@@ -1,0 +1,155 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pollutants</title>
+  <meta name="description" content="Pollutants">
+  <meta name="author" content="Pollutants">
+
+<style>
+fieldset {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8DD;
+    color: #212529;
+    margin-bottom: 30px;
+}
+
+fieldset > legend {
+    font-weight: bold;
+}
+
+fieldset.pollutant > legend {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+fieldset.pollutant > legend > div {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+fieldset.pollutant > legend > div > div.circle{
+    border-radius: 50%;
+    height: 55px;
+    width: 55px; 
+    border: 5px solid white;
+    background-color: #12b3c4;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    box-shadow: 0px 0px 0 2px gray;
+    color: white;
+}
+
+fieldset.pollutant > legend > div > div.pollutant_name{
+    padding: 0px 5px 0px 10px;
+}
+
+
+div.description {
+    font-size: 0.8em;
+    text-align:justify;
+}
+div.description > legend {
+    padding-inline-start: 0px;
+    font-weight: bold;
+}
+
+legend.center {
+    text-align: center;
+}
+div.description > div {
+    /*border-bottom: 1px solid #DDD;*/
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    
+}
+
+
+div.quality_index table {
+    width: 100%;
+    border-spacing: 0px;
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #212529;
+}
+
+div.quality_index table tr .name {
+    text-align: left;
+}
+div.quality_index table tr .range {
+    text-align: right;
+}
+div.quality_index table tr td {
+    padding: 0.625em;
+}
+.quality_index .good {
+    background-color: #12b3c4;
+}
+.quality_index .fair {
+    background-color: #29a884;
+}
+.quality_index .moderate {
+    background-color: #f0e641;
+}
+.quality_index .poor {
+    background-color: #fa504f;
+}
+.quality_index .very_poor {
+    background-color: #960432;
+}
+
+</style>
+
+</head>
+
+<body>
+    <div>
+        <div>
+            <!-- CO -->
+            <fieldset id='co' class='pollutant'>
+                <legend class=''><div><div class='circle'>CO</div><div class='pollutant_name'>Carbon Monixide</div></div></legend>
+                <div class='description'>
+                    <legend>Description</legend>
+                    <div>Colorless and odorless gas</div>
+                    
+                    <legend>Sources</legend>
+                    <div>Exhaust gases from motor vehicles, inner sources including kerosene and wood stoves</div>
+                    
+                    <legend>Health Effects</legend>
+                    <div>Headaches, reduced mental awareness, hearth attack, cardiovascular diseases, fetal development disorders, death</div>
+                    
+                    <legend class='center'>Quality Index</legend>
+                    <div class='quality_index'>
+                        <table>
+                            <tbody>
+                                <tr class='good'>
+                                    <td class='name'>Good</td>
+                                    <td class='range'>0-5</td>
+                                </tr>
+                                <tr class='fair'>
+                                    <td>Fair</td>
+                                    <td class='range'>5-7</td>
+                                </tr>
+                                <tr class='moderate'>
+                                    <td>Moderate</td>
+                                    <td class='range'>7-10</td>
+                                </tr>
+                                <tr class='poor'>
+                                    <td>Poor</td>
+                                    <td class='range'>10-15</td>
+                                </tr>
+                                <tr class='very_poor'>
+                                    <td>Very Poor</td>
+                                    <td class='range'>15-50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</body>
+</html>

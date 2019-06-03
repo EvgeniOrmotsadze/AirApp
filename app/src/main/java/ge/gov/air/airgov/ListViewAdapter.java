@@ -3,8 +3,13 @@ package ge.gov.air.airgov;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +59,10 @@ public class ListViewAdapter extends BaseAdapter {
     private static class ViewHolder{
         TextView stations;
         TextView km;
+        TextView airQualityList;
+        View listColorView;
         RelativeLayout singleRow;
+        TextView selectItem;
     }
 
     ViewHolder viewHolder = null;
@@ -73,8 +81,11 @@ public class ListViewAdapter extends BaseAdapter {
             // inflate list_rowcell for each row
             vi = layoutInflater.inflate(R.layout.single_row,null);
             viewHolder.stations = (TextView) vi.findViewById(R.id.first);
-            viewHolder.km = (TextView) vi.findViewById(R.id.km);
+            viewHolder.km = (TextView) vi.findViewById(R.id.distanceList);
+            viewHolder.airQualityList = vi.findViewById(R.id.airQualityList);
             viewHolder.singleRow = vi.findViewById(R.id.single_row);
+            viewHolder.listColorView = vi.findViewById(R.id.listColorView);
+            viewHolder.selectItem = vi.findViewById(R.id.selectItem);
             holders.add(viewHolder);
             vi.setTag(viewHolder);
         }else {
@@ -83,11 +94,35 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.singleRow.setBackgroundColor(Color.parseColor(list.get(pos).getColor()));
         viewHolder.stations.setText(list.get(pos).getText());
         viewHolder.km.setText(list.get(pos).getLocation());
-        if(list.get(pos).getId().equals(id))
-            vi.setBackgroundColor(Color.parseColor(list.get(pos).getColor()));
+        viewHolder.airQualityList.setText(list.get(pos).getQuality());
+
+
+        if(list.get(pos).getId().equals(id)) {
+
+            Drawable vDrawable = context.getResources().getDrawable(R.drawable.station_text_shape);
+            vDrawable.setColorFilter(new
+                    PorterDuffColorFilter(context.getResources().getColor(R.color.showIcon), PorterDuff.Mode.MULTIPLY));
+            vi.setBackground(vDrawable);
+            viewHolder.selectItem.setVisibility(View.VISIBLE);
+        }else {
+            Drawable vDrawable = context.getResources().getDrawable(R.drawable.station_text_shape);
+            vDrawable.setColorFilter(new
+                    PorterDuffColorFilter(context.getResources().getColor(R.color.showIconLight), PorterDuff.Mode.MULTIPLY));
+            vi.setBackground(vDrawable);
+            viewHolder.selectItem.setVisibility(View.GONE);
+        }
+
+
+
+        Drawable mDrawable = context.getResources().getDrawable(R.drawable.station_text_shape);
+        mDrawable.setColorFilter(new
+                PorterDuffColorFilter(Color.parseColor(list.get(pos).getColor()), PorterDuff.Mode.MULTIPLY));
+
+        viewHolder.listColorView.setBackground(mDrawable);
+        viewHolder.airQualityList.setTextColor(Color.parseColor(list.get(pos).getColor()));
+
         return vi;
     }
 

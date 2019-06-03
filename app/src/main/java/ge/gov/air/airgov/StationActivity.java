@@ -76,6 +76,7 @@ public class StationActivity extends AppCompatActivity {
         double lat = this.getIntent().getDoubleExtra("lat",0);
         double longt = this.getIntent().getDoubleExtra("long",0);
 
+
         currentLocation = new Location("");
         currentLocation.setLatitude((lat));
         currentLocation.setLongitude((longt));
@@ -158,7 +159,7 @@ public class StationActivity extends AppCompatActivity {
         for (int i = 0; i < jsonArray.length(); i++) {
             String st = jsonArray.get(i).toString();
             stationsList.add(st);
-            String col = readStationsForColor(st);
+            Substance col = readStationsForColor(st);
             JSONObject jsonObject = new JSONObject(st);
             String settlement_en = jsonObject.getString("settlement_en");
             String settlement_ge = jsonObject.getString("settlement");
@@ -175,26 +176,27 @@ public class StationActivity extends AppCompatActivity {
             StationModel stationModel = new StationModel(id);
             stationModel.setLoc(location);
             stationModel.setText((isGeorgian?settlement_ge:settlement_en)+ ", " + (isGeorgian?address_ge:address_en));
-            if(currentLocation == null){
+            if(currentLocation.getLatitude() < 1 && currentLocation.getLatitude() < 1){
                 stationModel.setLocation("?");
             }else {
                 float v = location.distanceTo(currentLocation);
                 stationModel.setLocation(new DecimalFormat("##.#").format(v/1000) + (isGeorgian?"კმ":"km"));
             }
-            stationModel.setColor(col);
+            stationModel.setColor(col.getColor());
+            stationModel.setQuality(col.getAirQuality());
             list.add(stationModel);
         }
         return list;
     }
 
-    private String readStationsForColor(String data) throws JSONException {
+    private Substance readStationsForColor(String data) throws JSONException {
         JSONObject jsonObject = new JSONObject(data);
         JSONArray eqip = jsonObject.getJSONArray("stationequipment_set");
         return readStationEquipment(eqip);
     }
 
 
-    private String readStationEquipment(JSONArray jsonArray) throws JSONException {
+    private Substance readStationEquipment(JSONArray jsonArray) throws JSONException {
         ArrayList<Substance> arrayList = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -209,7 +211,7 @@ public class StationActivity extends AppCompatActivity {
                 maxSubstance = arrayList.get(i);
             }
         }
-        return maxSubstance.getColor();
+        return maxSubstance;
     }
 
     public int substanceCompare(Substance one,Substance second) {
@@ -321,21 +323,26 @@ public class StationActivity extends AppCompatActivity {
             double very_poor_to = arrIndexObj.getDouble("very_poor_to");
 
 
-
+            String airQualityStr = "";
             if(lastData > goodFrom && lastData <= goodTo){
                 subsColor = arrIndexObj.getString("good_color");
+                airQualityStr = isGeorgian? "ძალიან კარგი" : "Good";
                 //  percentOfValue = lastData * 100/goodTo;
             }else if(lastData > fair_from && lastData <= fair_to){
                 subsColor = arrIndexObj.getString("fair_color");
+                airQualityStr = isGeorgian? "კარგი" : "Fair";
                 // percentOfValue = lastData * 100/fair_to;
             }else if(lastData > moderate_from && lastData <= moderate_to){
                 subsColor = arrIndexObj.getString("moderate_color");
+                airQualityStr = isGeorgian? "საშუალო" : "Moderate";
                 //percentOfValue = lastData * 100/ moderate_to;
             }else if(lastData > poor_from &&  lastData <= poor_to){
                 subsColor = arrIndexObj.getString("poor_color");
+                airQualityStr = isGeorgian? "ცუდი" : "Poor";
                 //percentOfValue = lastData * 100/poor_to;
             }else if(lastData > very_poor_from && lastData <= very_poor_to){
                 subsColor = arrIndexObj.getString("very_poor_color");
+                airQualityStr = isGeorgian? "ძალიან ცუდი" : "Very Poor";
                 //percentOfValue = lastData * 100/very_poor_to;
             }
             substance1.setGoodFrom(goodFrom);
@@ -348,8 +355,8 @@ public class StationActivity extends AppCompatActivity {
             substance1.setPoorTo(poor_to);
             substance1.setVeryPoorFrom(very_poor_from);
             substance1.setVeryPoorTo(very_poor_to);
+            substance1.setAirQuality(airQualityStr);
         }
-
         substance1.setColor(subsColor);
 
 
@@ -372,6 +379,15 @@ public class StationActivity extends AppCompatActivity {
                 Intent intent = new Intent(StationActivity.this, App.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
+                return true;
+            case R.id.station_map:
+                intent = new Intent(StationActivity.this, MapActivity.class);
+                intent.putExtra("data",data);
+                intent.putExtra("lat", currentLocation.getLatitude());
+                intent.putExtra("long", currentLocation.getLongitude());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
+                return true;
         }
         return true;
     }

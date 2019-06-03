@@ -36,7 +36,6 @@ public class WebViewAct extends AppCompatActivity {
         String url = this.getIntent().getStringExtra("url");
         webView.loadUrl(url);
 
-
     }
 
     public void backPressed(View view){

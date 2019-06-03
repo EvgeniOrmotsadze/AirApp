@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Air Gov</string>
     <string name="high_pollution">დამბინძურებელი</string>
-    <string name="language">ინგლისურად</string>
+    <string name="language"> English </string>
     <string name="toolbar_header">AIR.GOV.GE</string>
     <string name="air_quality">ჰაერის ხარისი</string>
     <string name="check_internet">გთხოვთ შეამოწმოთ ინტერნეტ კავშირი</string>
@@ -13,4 +13,12 @@
     <string name="Pollutants">დაბინძურება</string>
     <string name="time">დრო </string>
     <string name="share">გაზიარება</string>
+    <string name="distance">დაშორება</string>
+    <string name="good">ძალიან კარგი</string>
+    <string name="fair">კარგი</string>
+    <string name="moderate">საშუალო</string>
+    <string name="poor">ცუდი</string>
+    <string name="very_poor">ძალიან ცუდი</string>
+    <string name="Air_Quality_Index">ჰაიერის ხარისხის ინდექსი</string>
+    <string name="selected">მონიშნული</string>
 </resources>

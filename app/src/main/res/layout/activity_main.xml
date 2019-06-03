@@ -5,15 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:layout_marginBottom="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="12dp"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
         android:weightSum="3">
 
@@ -30,19 +30,23 @@
                 android:elevation="4dp"
                 android:textAlignment="center"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="@string/toolbar_header"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/sofia_pro_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="100sp"
+
+                        android:fontFamily="@font/sofia_pro_bold"
+                        android:text="@string/toolbar_header"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
 
@@ -54,8 +58,7 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="1">
 
-            <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <android.support.design.widget.CoordinatorLayout
                 android:id="@+id/main_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -63,104 +66,313 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:animateLayoutChanges="true"
-                    android:weightSum="3">
+                    android:orientation="vertical"
+                    android:weightSum="8">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/lightGreen"
                         android:id="@+id/showTextLayout"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_gravity="center"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="28dp"
-                            android:text="@string/air_quality"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:layout_margin="8dp"
-                            android:fontFamily="sans-serif-condensed-medium"
-                            android:textStyle="bold"
-                            android:textSize="40dp"
-                            android:id="@+id/air_condition"
-                            android:text="Good"/>
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:layout_marginTop="20dp"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:textColor="@color/white"
-                                android:textSize="24dp"
-                                android:text="@string/high_pollution"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:layout_alignParentRight="true"
-                                android:id="@+id/element_name"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:textSize="30dp"
-                                android:text="SO2"
-                                android:background="@drawable/shape_text_display"/>
-                        </RelativeLayout>
-                        <TextView
-                            android:id="@+id/main_text_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/sofia_pro_bold"
-                            android:layout_gravity="center"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="70dp"
-                            android:text="19.50"/>
-                        <TextView
-                            android:id="@+id/main_text_view_cube"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="15dp"
-                            android:fontFamily="@font/sofia_pro_bold"
-                            android:textColor="@color/white"
-                            android:text="ug/m3"/>
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/showDataLayout"
-                        android:layout_weight="2">
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@color/lightGreen"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10sp"
+
+                            android:clickable="true"
+
+                            android:onClick="showStationList"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/station_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginLeft="10sp"
+                                android:fontFamily="@font/sofia_pro_bold"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/station_distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:fontFamily="@font/sofia_pro_bold"
+                                android:layout_marginLeft="10sp"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/main_data_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:id="@+id/air_quality_static"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sofia_pro_bold"
+                                android:layout_margin="15dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/air_quality"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/air_condition"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="@font/sofia_pro_bold"
+                                android:text="Good"
+                                android:textColor="@color/white"
+                                android:textSize="55sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginRight="30sp"
+                            android:gravity="center">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:id="@+id/pollutant_text"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:fontFamily="@font/sofia_pro_bold"
+                                    android:text="@string/high_pollution"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/element_name"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@drawable/shape_text_display"
+                                    android:fontFamily="@font/sofia_pro_bold"
+                                    android:text="SO2"
+                                    android:onClick="showPollution"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="17sp" />
+
+                                    <TextView
+                                        android:id="@+id/main_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/sofia_pro_bold"
+                                        android:text="19.50"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/main_text_view_cube"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="4dp"
+                                        android:fontFamily="@font/sofia_pro_bold"
+                                        android:text="ug/m3"
+                                        android:textColor="@color/white"
+                                        android:textSize="11sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/recommendLayout"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="110sp"
                             android:orientation="vertical"
-                            android:weightSum="3">
+                            android:layout_marginLeft="20sp"
+                            android:layout_marginRight="20sp"
+                            android:background="@drawable/recomend_shape"
+                            >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="20sp"
+
+                            android:fitsSystemWindows="true"
+                            android:fontFamily="@font/sofia_pro_bold"
+                            android:text="@string/recomendations"
+                            android:textIsSelectable="true"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:id="@+id/recommendText"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginRight="20sp"
+                            android:layout_marginLeft="20sp"
+                            android:layout_marginBottom="5dp"
+                            android:fitsSystemWindows="true"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:text=""
+                            android:textIsSelectable="true"
+                            android:textSize="13sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/showDataLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10sp"
+                        android:layout_weight="7"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:weightSum="1">
+
 
                             <RelativeLayout
+                                android:id="@+id/down_layout"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="0.6"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+
+                                    android:layout_marginBottom="5dp"
+                                    android:gravity="left"
+                                    android:orientation="vertical"
+                                    android:weightSum="1">
+
+
+                                    <TextView
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_marginTop="3sp"
+                                        android:layout_weight="0.4"
+                                        android:fitsSystemWindows="true"
+                                        android:fontFamily="@font/sofia_pro_medium"
+                                        android:text="@string/Pollutants"
+                                        android:textIsSelectable="true"
+                                        android:textSize="13sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginRight="2sp"
+                                    android:layout_marginBottom="4sp"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:weightSum="1">
+
+                                    <ImageButton
+                                        android:id="@+id/showStation"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginTop="3sp"
+                                        android:layout_weight="0.4"
+                                        android:adjustViewBounds="true"
+                                        android:background="@mipmap/up"
+                                        android:onClick="showStations"
+                                        android:scaleType="center" />
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="2sp"
+                                    android:layout_marginBottom="4sp"
+                                    android:gravity="right"
+                                    android:orientation="vertical"
+                                    android:weightSum="1">
+
+                                    <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:textStyle="bold"-->
+                                    <!--android:textSize="14sp"-->
+                                    <!--android:layout_weight="0.5"-->
+                                    <!--android:text="237 M"-->
+                                    <!--android:id="@+id/station_distance"/>-->
+
+                                    <TextView
+                                        android:id="@+id/time_ago_v"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2sp"
+                                        android:layout_weight="0.6"
+                                        android:fontFamily="@font/sofia_pro_medium"
+                                        android:text="22s ago"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/station_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5"
+                                        android:text="237 M"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/chartLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1">
+                                android:layout_weight="0.4">
 
                                 <com.github.mikephil.charting.charts.LineChart
                                     android:id="@+id/lineChart1"
@@ -170,68 +382,6 @@
                                     android:layout_marginTop="0dp"></com.github.mikephil.charting.charts.LineChart>
                             </RelativeLayout>
 
-                            <RelativeLayout
-                                android:id="@+id/down_layout"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginRight="15dp"
-                                android:layout_weight="2"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_alignParentLeft="true"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:fontFamily="@font/sofia_pro_medium"
-                                        android:id="@+id/time_ago_v"
-                                        android:layout_marginTop="10dp"
-                                        android:text="22s ago" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/station_address"
-                                        android:fontFamily="@font/sofia_pro_medium"
-                                        android:layout_alignParentLeft="true"
-                                        android:layout_marginTop="10dp"
-                                        android:text="Tbilisi, Tsereteli str." />
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_alignParentRight="true"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:layout_marginTop="10dp"
-                                        android:text="237 M"
-                                        android:id="@+id/station_distance"/>
-
-                                    <ImageButton
-                                        android:id="@+id/showStation"
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:background="@mipmap/up"
-                                        android:adjustViewBounds="true"
-
-                                        android:scaleType="center"
-                                        android:onClick="showStations"
-                                         />
-                                </LinearLayout>
-
-                            </RelativeLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -240,29 +390,28 @@
                 </LinearLayout>
 
 
-
             </android.support.design.widget.CoordinatorLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/station_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="25dp"
             android:layout_weight="2"
-            android:orientation="vertical"
-            android:id="@+id/station_layout">
+            android:orientation="vertical">
 
 
             <ListView
+                android:id="@+id/main_page_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:choiceMode="singleChoice"
-                android:id="@+id/main_page_list_view"
-                android:dividerHeight="2dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:layout_gravity="center_horizontal"/>
+                android:choiceMode="singleChoice"
+                android:dividerHeight="2dp" />
 
 
         </LinearLayout>
@@ -274,7 +423,92 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_item" />
+        app:menu="@menu/nav_item">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="18dp"
+            android:layout_gravity="bottom">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/good"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/good"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/fair"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/fair"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/moderate"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/moderate"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/poor"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/poor"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@color/very_poor"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="20sp"
+                    android:text="@string/very_poor"/>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

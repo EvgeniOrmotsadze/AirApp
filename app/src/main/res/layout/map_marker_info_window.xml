@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="140sp"
+    android:orientation="vertical"
+    android:background="@drawable/map_background" >
+
+    <TextView
+        android:layout_margin="5sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_t"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_margin="5sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:text="@string/Air_Quality_Index"/>
+
+    <TextView
+        android:id="@+id/poor"
+        android:layout_margin="5sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text=""/>
+
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#000"-->
+            <!--android:layout_margin="8sp"-->
+            <!--android:textSize="13sp"-->
+            <!--android:text="Click show details"/>-->
+
+
+</LinearLayout>

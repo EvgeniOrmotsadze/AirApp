@@ -7,6 +7,11 @@
         app:showAsAction="always"
         android:iconTint="@color/chartFillColor"/>
 
+    <item android:id="@+id/station_map"
+
+        android:icon="@drawable/maps"
+        app:showAsAction="always"
+        android:iconTint="@color/chartFillColor"/>
 
 
 </menu>

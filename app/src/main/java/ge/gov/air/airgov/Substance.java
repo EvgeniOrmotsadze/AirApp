@@ -31,12 +31,30 @@ public class Substance {
     private double veryPoorTo;
     private double veryPoorFrom;
 
+    private String recommendName;
+    private String recommendLvl;
+
     private String goodColor;
     private String fairColor;
     private String moderateColor;
     private String poorColor;
     private String veryPoorColor;
 
+    public String getRecommendName() {
+        return recommendName;
+    }
+
+    public void setRecommendName(String recommendName) {
+        this.recommendName = recommendName;
+    }
+
+    public String getRecommendLvl() {
+        return recommendLvl;
+    }
+
+    public void setRecommendLvl(String recommendLvl) {
+        this.recommendLvl = recommendLvl;
+    }
 
     public String getGoodColor() {
         return goodColor;

@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <group android:id="@+id/group_feature"
+    <group
+        android:id="@+id/group_feature"
         android:checkableBehavior="single">
-        <item android:id="@+id/language"
-            android:checked="true"
-            android:title="@string/language"/>
+        <item
+            android:id="@+id/language"
+            android:icon="@drawable/georgia"
+            android:title="@string/language" />
     </group>
     <group android:id="@+id/group_settings"
         android:checkableBehavior="single">
         <item android:id="@+id/item_share"
+            android:icon="@drawable/share"
             android:title="@string/share"/>
     </group>
     <group android:id="@+id/group_settings2"
         android:checkableBehavior="single">
         <item android:id="@+id/recomendation"
+            android:icon="@drawable/info"
             android:title="@string/recomendations"/>
-    </group>
-    <group android:id="@+id/group_settings3"
-        android:checkableBehavior="single">
-        <item android:id="@+id/airQualityInx"
-            android:title="@string/airQualityIndx"/>
     </group>
     <group android:id="@+id/group_settings4"
         android:checkableBehavior="single">
         <item android:id="@+id/pollutant"
+            android:icon="@drawable/info"
             android:title="@string/Pollutants"/>
+    </group>
+
+    <group android:id="@+id/group_settings5">
     </group>
 </menu>

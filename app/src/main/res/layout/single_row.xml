@@ -1,52 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:orientation="horizontal"
+    android:layout_height="100dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:background="@drawable/station_text_shape"
+    android:orientation="vertical"
     android:weightSum="1">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_height="60dp"
-        android:id="@+id/single_row"
-        android:layout_weight="0.7"
-        android:background="@drawable/station_text_shape">
-
-    <TextView
+    <View
+        android:id="@+id/listColorView"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_height="60dp"
-        android:textStyle="bold"
-        android:layout_alignParentLeft="true"
-        android:fontFamily="@font/sofia_pro_medium"
-        android:textColor="@color/white"
-        android:text=""
-        android:textSize="16dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/first"/>
+        android:layout_height="5dp"
+        android:background="@color/stationText" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/single_row"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_weight="0.3"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sofia_pro_medium"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="5dp"
+        android:layout_weight="0.3"
+        android:paddingLeft="7dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="2dp"
+            android:text="@string/air_quality"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/airQualityList"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/distance"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/showIcon" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="5dp"
+        android:layout_weight="0.5"
+        android:paddingLeft="7dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="1dp"
+            android:text="@string/distance"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/selectItem"
+            android:layout_height="15dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:text="@string/selected"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
 
 
-</RelativeLayout>
-
-
-    <TextView
-        android:layout_width="100dp"
-        android:layout_marginTop="5dp"
-        android:layout_height="60dp"
-        android:textStyle="bold"
-        android:layout_alignParentRight="true"
-        android:fontFamily="@font/sofia_pro_bold"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:text=""
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/km"
-        android:layout_weight="0.3"/>
+        <TextView
+            android:id="@+id/distanceList"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:text="@string/distance"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

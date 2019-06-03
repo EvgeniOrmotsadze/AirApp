@@ -9,10 +9,21 @@
     <color name="red">#D14343</color>
     <color name="black">#0A0E0A</color>
     <color name="showIcon">#A3AAA6</color>
+    <color name="showIconLight">#C6CAC7</color>
+    <color name="recommend">#22000000</color>
+
+    <color name="showStation">#D8D8D8</color>
+    <color name="showStationLight">#E6EBE8</color>
+
     <color name="selected">#7C4343</color>
     <color name="stationText">#63DBD0</color>
     <color name="stationTextSelected">#19AFA1</color>
     <color name="populationColor">#72DBECD5</color>
     <color name="lightgray">#D3D3D3</color>
     <color name="actionBarColor">#3F56D5</color>
+    <color name="good">#35eee6</color>
+    <color name="fair">#29a884</color>
+    <color name="moderate">#f0e641</color>
+    <color name="poor">#fa504f</color>
+    <color name="very_poor">#960432</color>
 </resources>

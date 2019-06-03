@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Air Gov</string>
     <string name="high_pollution">Pollutant</string>
-    <string name="language"> Georgian </string>
+    <string name="language"> ქართულად </string>
     <string name="toolbar_header">AIR.GOV.GE</string>
     <string name="air_quality">Air Quality</string>
     <string name="check_internet">please check internet connection</string>
@@ -12,4 +12,12 @@
     <string name="Pollutants">Pollutants</string>
     <string name="time">time</string>
     <string name="share">Share</string>
+    <string name="distance">Distance</string>
+    <string name="good">Good</string>
+    <string name="fair">Fair</string>
+    <string name="moderate">Moderate</string>
+    <string name="poor">Poor</string>
+    <string name="very_poor">Very Poor</string>
+    <string name="Air_Quality_Index">Air Quality Index</string>
+    <string name="selected">selected</string>
 </resources>

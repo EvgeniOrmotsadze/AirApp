@@ -9,6 +9,17 @@ public class StationModel {
     private String location;
     private Location loc;
     private String color;
+    private String quality;
+
+    private String item;
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
 
     public StationModel(String id) {
         this.id = id;
@@ -18,6 +29,14 @@ public class StationModel {
         this.id = id;
         this.text = text;
         this.location = location;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 
     public String getColor() {
