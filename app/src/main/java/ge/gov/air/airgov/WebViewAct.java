@@ -39,7 +39,7 @@ public class WebViewAct extends AppCompatActivity {
     }
 
     public void backPressed(View view){
-        this.onBackPressed();
+        super.onBackPressed();
     }
 
 

@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="3">
+        android:weightSum="2">
 
 
         <android.support.design.widget.AppBarLayout
@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
+
             android:layout_weight="1">
 
             <android.support.design.widget.CoordinatorLayout
@@ -70,24 +70,22 @@
                     android:layout_height="fill_parent"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical"
-                    android:weightSum="8">
+                   >
 
                     <LinearLayout
                         android:id="@+id/showTextLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:background="@color/lightGreen"
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-
                             android:clickable="true"
-
+                            android:background="@drawable/border"
                             android:onClick="showStationList"
                             android:orientation="vertical">
 
@@ -95,23 +93,24 @@
                                 android:id="@+id/station_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
-                                android:layout_marginLeft="10sp"
+                                android:layout_gravity="center_horizontal"
+
+                                android:padding="5sp"
                                 android:fontFamily="@font/sofia_pro_bold"
                                 android:text=""
                                 android:textColor="@color/white"
-                                android:textSize="15sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/station_distance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
+                                android:layout_gravity="center_horizontal"
                                 android:fontFamily="@font/sofia_pro_bold"
-                                android:layout_marginLeft="10sp"
+                                android:padding="5sp"
                                 android:text=""
                                 android:textColor="@color/white"
-                                android:textSize="15sp" />
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -204,47 +203,8 @@
                                         android:textSize="11sp" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/recommendLayout"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="110sp"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20sp"
-                            android:layout_marginRight="20sp"
-                            android:background="@drawable/recomend_shape"
-                            >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="20sp"
-
-                            android:fitsSystemWindows="true"
-                            android:fontFamily="@font/sofia_pro_bold"
-                            android:text="@string/recomendations"
-                            android:textIsSelectable="true"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="@color/white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:id="@+id/recommendText"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginRight="20sp"
-                            android:layout_marginLeft="20sp"
-                            android:layout_marginBottom="5dp"
-                            android:fitsSystemWindows="true"
-                            android:fontFamily="@font/sofia_pro_medium"
-                            android:text=""
-                            android:textIsSelectable="true"
-                            android:textSize="13sp" />
-
-                        </LinearLayout>
                     </LinearLayout>
+
 
 
 
@@ -252,26 +212,66 @@
                         android:id="@+id/showDataLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10sp"
-                        android:layout_weight="7"
                         android:gravity="bottom"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                       >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/recommendLayout"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="20sp"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="20sp"
+                            android:layout_marginRight="20sp"
+                            android:background="@drawable/recomend_shape"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="20sp"
+
+                                android:fitsSystemWindows="true"
+                                android:fontFamily="@font/sofia_pro_bold"
+                                android:text="@string/recomendations"
+                                android:textIsSelectable="true"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:textColor="@color/white"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:id="@+id/recommendText"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="20sp"
+                                android:layout_marginLeft="20sp"
+                                android:layout_marginBottom="5dp"
+                                android:fitsSystemWindows="true"
+                                android:fontFamily="@font/sofia_pro_medium"
+                                android:text=""
+                                android:textIsSelectable="true"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
-                            android:weightSum="1">
+                            android:id="@+id/down_layout_full"
+                            >
 
 
                             <RelativeLayout
                                 android:id="@+id/down_layout"
                                 android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
-                                android:layout_weight="0.6"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
@@ -279,24 +279,20 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentLeft="true"
-
-                                    android:layout_marginBottom="5dp"
                                     android:gravity="left"
                                     android:orientation="vertical"
-                                    android:weightSum="1">
+                                    android:layout_marginTop="15sp"
+                                   >
 
 
                                     <TextView
 
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:layout_marginTop="3sp"
-                                        android:layout_weight="0.4"
+                                        android:layout_gravity="center_vertical"
                                         android:fitsSystemWindows="true"
                                         android:fontFamily="@font/sofia_pro_medium"
                                         android:text="@string/Pollutants"
-                                        android:textIsSelectable="true"
                                         android:textSize="13sp" />
 
                                 </LinearLayout>
@@ -306,7 +302,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginRight="2sp"
-                                    android:layout_marginBottom="4sp"
+                                    android:layout_marginTop="9sp"
                                     android:gravity="center"
                                     android:orientation="vertical"
                                     android:weightSum="1">
@@ -326,61 +322,40 @@
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
+                                    android:layout_height="80dp"
                                     android:layout_alignParentRight="true"
-                                    android:layout_marginRight="2sp"
-                                    android:layout_marginBottom="4sp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="12sp"
                                     android:gravity="right"
                                     android:orientation="vertical"
-                                    android:weightSum="1">
-
-                                    <!--<TextView-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:textStyle="bold"-->
-                                    <!--android:textSize="14sp"-->
-                                    <!--android:layout_weight="0.5"-->
-                                    <!--android:text="237 M"-->
-                                    <!--android:id="@+id/station_distance"/>-->
+                                   >
 
                                     <TextView
                                         android:id="@+id/time_ago_v"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="2sp"
-                                        android:layout_weight="0.6"
+
                                         android:fontFamily="@font/sofia_pro_medium"
-                                        android:text="22s ago"
-                                        android:textSize="14sp"
+                                        android:text="  "
+                                        android:gravity="right"
+                                        android:layout_gravity="center_vertical"
+                                        android:textSize="13sp"
                                         android:textStyle="bold" />
 
                                     <TextView
                                         android:id="@+id/station_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:text="237 M"
-                                        android:textSize="12sp"
+                                        android:gravity="right"
+                                        android:layout_gravity="center_vertical"
+                                        android:text=" "
+                                        android:textSize="11sp"
                                         android:textStyle="bold" />
 
                                 </LinearLayout>
 
                             </RelativeLayout>
 
-                            <RelativeLayout
-                                android:id="@+id/chartLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.4">
-
-                                <com.github.mikephil.charting.charts.LineChart
-                                    android:id="@+id/lineChart1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="0dp"></com.github.mikephil.charting.charts.LineChart>
-                            </RelativeLayout>
 
                         </LinearLayout>
 
@@ -395,13 +370,30 @@
 
         <LinearLayout
             android:id="@+id/station_layout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
             android:layout_marginRight="25dp"
-            android:layout_weight="2"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:weightSum="2"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/chartLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart1"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"></com.github.mikephil.charting.charts.LineChart>
+            </RelativeLayout>
 
 
             <ListView

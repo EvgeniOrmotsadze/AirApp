@@ -103,13 +103,13 @@ public class ListViewAdapter extends BaseAdapter {
 
             Drawable vDrawable = context.getResources().getDrawable(R.drawable.station_text_shape);
             vDrawable.setColorFilter(new
-                    PorterDuffColorFilter(context.getResources().getColor(R.color.showIcon), PorterDuff.Mode.MULTIPLY));
+                    PorterDuffColorFilter(context.getResources().getColor(R.color.showStation), PorterDuff.Mode.MULTIPLY));
             vi.setBackground(vDrawable);
             viewHolder.selectItem.setVisibility(View.VISIBLE);
         }else {
             Drawable vDrawable = context.getResources().getDrawable(R.drawable.station_text_shape);
             vDrawable.setColorFilter(new
-                    PorterDuffColorFilter(context.getResources().getColor(R.color.showIconLight), PorterDuff.Mode.MULTIPLY));
+                    PorterDuffColorFilter(context.getResources().getColor(R.color.showStationLight), PorterDuff.Mode.MULTIPLY));
             vi.setBackground(vDrawable);
             viewHolder.selectItem.setVisibility(View.GONE);
         }
