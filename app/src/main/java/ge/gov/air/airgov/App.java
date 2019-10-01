@@ -159,20 +159,15 @@ public class App extends AppCompatActivity implements LocationListener {
     private TextView air_quality_static;
     private TextView pollutant_text;
     private String currentStation;
-    private LinearLayout linearLayout;
-    private LinearLayout down_layout_full;
-    private RelativeLayout down_layout;
 
     private Toolbar myToolbar;
     private ActionBar actionbar;
 
-    private LinearLayout backgroundLayout;
     private Location lastKnownLocation;
     private boolean isGeorgian;
 
     public static final String GEO = "ka";
     public static final String ENG = "en";
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -185,11 +180,11 @@ public class App extends AppCompatActivity implements LocationListener {
         SharedPreferences prefs = getSharedPreferences("pref", MODE_PRIVATE);
         String restoredText = prefs.getString("lang", null);
         if(restoredText != null) {
-                if(restoredText.equals("ka")){
-                    isGeorgian = true;
-                }else {
-                    isGeorgian = false;
-                }
+            if(restoredText.equals("ka")){
+                isGeorgian = true;
+            }else {
+                isGeorgian = false;
+            }
             changeLanguage(restoredText);
         }
 
@@ -199,7 +194,7 @@ public class App extends AppCompatActivity implements LocationListener {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         setTitle(null);
-        linearLayout = findViewById(R.id.linearLayout);
+
         myToolbar.setBackgroundColor(getResources().getColor(R.color.white));
         actionbar = getSupportActionBar();
         Drawable menuIcon = getResources().getDrawable(R.mipmap.white_menu_icon);
@@ -260,8 +255,7 @@ public class App extends AppCompatActivity implements LocationListener {
         stationDistance = findViewById(R.id.station_distance);
         timeAgo = findViewById(R.id.time_ago_v);
         dateTime = findViewById(R.id.station_date);
-        down_layout = findViewById(R.id.down_layout);
-        down_layout_full = findViewById(R.id.down_layout_full);
+
         airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian? 35 : 55);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -284,8 +278,6 @@ public class App extends AppCompatActivity implements LocationListener {
             SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
             data = prefs2.getString("data",null);
         }
-
-
 
         try {
             readStations(data);
@@ -332,12 +324,9 @@ public class App extends AppCompatActivity implements LocationListener {
         });
 
 
-        setTimeAgoOnTextView(chartDataList.get(chartDataList.size()-1).getDate().substring(11,16),chartDataList.get(chartDataList.size()-1).getDate().substring(0,10));
-        getIntent().setAction("Already created");
 
-
-     //   displayChart();
-       // NavigationView navView = (NavigationView) findViewById(R.id.navigation);
+        //   displayChart();
+        // NavigationView navView = (NavigationView) findViewById(R.id.navigation);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
         Date nowDate = new Date();
@@ -381,7 +370,7 @@ public class App extends AppCompatActivity implements LocationListener {
                     e.printStackTrace();
                 }
             }
-       }
+        }
     }
 
     public static boolean isConnected(Context context) {
@@ -438,9 +427,9 @@ public class App extends AppCompatActivity implements LocationListener {
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
 
             return false;
         } else {
@@ -469,7 +458,7 @@ public class App extends AppCompatActivity implements LocationListener {
                             == PackageManager.PERMISSION_GRANTED) {
 
                         if(lastKnownLocation == null) {
-                           this.recreate();
+                            reload();
                             getLocation();
                         }
                     }
@@ -489,11 +478,17 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     protected void onResume() {
-
-      //  checkWasWebView();
         super.onResume();
-    }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
 
+                == PackageManager.PERMISSION_GRANTED) {
+
+            getLocation();
+        }
+//        Intent intent = new Intent(App.this, LoadActivity.class);
+//        startActivity(intent);
+    }
 
     @Override
     protected void onDestroy() {
@@ -517,137 +512,137 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        checkWasWebView();
+        reload();
     }
 
     @SuppressLint("ResourceType")
     private void displayChart() {
 
-            chart = (LineChart) findViewById(R.id.lineChart1);
-            chart.getDescription().setEnabled(false);
+        chart = (LineChart) findViewById(R.id.lineChart1);
+        chart.getDescription().setEnabled(false);
 
-            chart.setScaleEnabled(true);
-            chart.setDrawGridBackground(false);
-            chart.setHighlightPerDragEnabled(false);
-            // if disabled, scaling can be done on x- and y-axis separately
-            chart.setPinchZoom(true);
-            chart.setDoubleTapToZoomEnabled(false);
-            chart.setDragDecelerationEnabled(true);
-            chart.setDragDecelerationFrictionCoef(0.88f);
-            // set an alternative background color
-            chart.setBackgroundColor(Color.TRANSPARENT);
-            chart.getAxisLeft().setDrawGridLines(false);
-            chart.getXAxis().setDrawGridLines(false);
-            chart.setBorderColor(ContextCompat.getColor(this, R.color.chartFillColor));
+        chart.setScaleEnabled(true);
+        chart.setDrawGridBackground(false);
+        chart.setHighlightPerDragEnabled(false);
+        // if disabled, scaling can be done on x- and y-axis separately
+        chart.setPinchZoom(true);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setDragDecelerationEnabled(true);
+        chart.setDragDecelerationFrictionCoef(0.88f);
+        // set an alternative background color
+        chart.setBackgroundColor(Color.TRANSPARENT);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.setBorderColor(ContextCompat.getColor(this, R.color.chartFillColor));
 
-            ArrayList<Entry> entries = new ArrayList<>();
-            final String[] months = new String[chartDataList.size()];
+        ArrayList<Entry> entries = new ArrayList<>();
+        final String[] months = new String[chartDataList.size()];
 
-            if(isGeorgian)
-                changeLanguage("en");
-            for (int i = 0; i < chartDataList.size(); i++) {
-                DecimalFormat df = new DecimalFormat("##.##");
-                String formatted = df.format(chartDataList.get(i).getVal());
-                double formattedDouble = 0;
-                try {
-                     formattedDouble = Double.parseDouble(formatted);
-                }catch (NumberFormatException ex){
-                    df = new DecimalFormat("#,##");
-                    formatted = df.format(chartDataList.get(i).getVal());
-                    formattedDouble = Double.parseDouble(formatted);
-                }
-                entries.add(new Entry(i, (float) formattedDouble));
-                months[i] = (chartDataList.get(i).getDate().substring(11,16));
+        if(isGeorgian)
+            changeLanguage("en");
+        for (int i = 0; i < chartDataList.size(); i++) {
+            DecimalFormat df = new DecimalFormat("##.##");
+            String formatted = df.format(chartDataList.get(i).getVal());
+            double formattedDouble = 0;
+            try {
+                formattedDouble = Double.parseDouble(formatted);
+            }catch (NumberFormatException ex){
+                df = new DecimalFormat("#,##");
+                formatted = df.format(chartDataList.get(i).getVal());
+                formattedDouble = Double.parseDouble(formatted);
             }
-            if(isGeorgian)
-                changeLanguage("ka");
+            entries.add(new Entry(i, (float) formattedDouble));
+            months[i] = (chartDataList.get(i).getDate().substring(11,16));
+        }
+        if(isGeorgian)
+            changeLanguage("ka");
 
-            if(months.length > 0)
-                setTimeAgoOnTextView(months[months.length - 1],chartDataList.get(chartDataList.size()-1).getDate().substring(0,10));
+        if(months.length > 0)
+            setTimeAgoOnTextView(months[months.length - 1],chartDataList.get(chartDataList.size()-1).getDate().substring(0,10));
 
-            LineDataSet dataSet = new LineDataSet(entries, ""); // times
+        LineDataSet dataSet = new LineDataSet(entries, ""); // times
 
-            dataSet.setColor(ContextCompat.getColor(this, R.color.showIcon));
-            dataSet.setFillColor(ContextCompat.getColor(this, R.color.showIcon));
-            dataSet.setDrawFilled(true);
-            dataSet.setDrawValues(false);
-            dataSet.setLineWidth(3f);
-            dataSet.setDrawCircles(false);
-            dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            dataSet.setDrawHighlightIndicators(false);
+        dataSet.setColor(ContextCompat.getColor(this, R.color.showIcon));
+        dataSet.setFillColor(ContextCompat.getColor(this, R.color.showIcon));
+        dataSet.setDrawFilled(true);
+        dataSet.setDrawValues(false);
+        dataSet.setLineWidth(3f);
+        dataSet.setDrawCircles(false);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSet.setDrawHighlightIndicators(false);
 
-            //****
-            // Controlling X axis
-            XAxis xAxis = chart.getXAxis();
-            // Set the xAxis position to bottom. Default is top
-            xAxis.setPosition(XAxis.XAxisPosition.TOP);
-            //Customizing x axis value
+        //****
+        // Controlling X axis
+        XAxis xAxis = chart.getXAxis();
+        // Set the xAxis position to bottom. Default is top
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        //Customizing x axis value
 
 
 
-            IAxisValueFormatter formatter = new IAxisValueFormatter() {
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return months[(int) value];
-                }
-            };
-            xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-            xAxis.setValueFormatter(formatter);
-            xAxis.setTextColor(ContextCompat.getColor(this, R.color.black));
-            xAxis.setGridColor(ContextCompat.getColor(this, R.color.black));
-            xAxis.setDrawAxisLine(false);
-
-                //***
-            // Controlling right side of y axis
-            YAxis yAxisRight = chart.getAxisRight();
-            yAxisRight.setEnabled(false);
-
-            // Controlling left side of y axis
-            YAxis yAxisLeft = chart.getAxisLeft();
-            yAxisLeft.setGranularity(1f);
-            yAxisLeft.setTextColor(ContextCompat.getColor(this, R.color.black));
-            yAxisLeft.setGridColor(ContextCompat.getColor(this, R.color.black));
-            yAxisLeft.setDrawAxisLine(true);
-            // Setting Data
-            LineData data = new LineData(dataSet);
-            if(chartDataList.size() > 0) {
-                chart.setData(data);
-                ChartMarker chartMarker = new ChartMarker(this);
-                chart.setMarker(chartMarker);
-                chart.setDrawMarkers(true);
-                //set default highlight
-                Highlight h = new Highlight((float)chartDataList.size()-1, (float) chartDataList.get(chartDataList.size()-1).getVal(), 0);
-                chart.highlightValue(h);
-
-            }else {
-                chart.setData(null);
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return months[(int) value];
             }
+        };
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+        xAxis.setTextColor(ContextCompat.getColor(this, R.color.black));
+        xAxis.setGridColor(ContextCompat.getColor(this, R.color.black));
+        xAxis.setDrawAxisLine(false);
+
+        //***
+        // Controlling right side of y axis
+        YAxis yAxisRight = chart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
+        // Controlling left side of y axis
+        YAxis yAxisLeft = chart.getAxisLeft();
+        yAxisLeft.setGranularity(1f);
+        yAxisLeft.setTextColor(ContextCompat.getColor(this, R.color.black));
+        yAxisLeft.setGridColor(ContextCompat.getColor(this, R.color.black));
+        yAxisLeft.setDrawAxisLine(true);
+        // Setting Data
+        LineData data = new LineData(dataSet);
+        if(chartDataList.size() > 0) {
+            chart.setData(data);
+            ChartMarker chartMarker = new ChartMarker(this);
+            chart.setMarker(chartMarker);
+            chart.setDrawMarkers(true);
+            //set default highlight
+            Highlight h = new Highlight((float)chartDataList.size()-1, (float) chartDataList.get(chartDataList.size()-1).getVal(), 0);
+            chart.highlightValue(h);
+
+        }else {
+            chart.setData(null);
+        }
 
 
 
-            chart.animateX(200, Easing.EasingOption.EaseInBounce);
-            chart.invalidate();
+        chart.animateX(200, Easing.EasingOption.EaseInBounce);
+        chart.invalidate();
 
-            chart.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent me) {
-                    float tappedX = me.getX();
-                    float tappedY = me.getY();
-                    MPPointD point = chart.getTransformer(YAxis.AxisDependency.LEFT).getValuesByTouchPoint(tappedX, tappedY);
-                    int current = (int) point.x;
-                    if(current >= 0 && current < chartDataList.size()) {
-                        performedClicking(current);
-                        Highlight h = new Highlight((float) point.x, (float) chartDataList.get(current).getVal(), 0);
-                        chart.highlightValue(h);
-                    }
-                    return true;
+        chart.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent me) {
+                float tappedX = me.getX();
+                float tappedY = me.getY();
+                MPPointD point = chart.getTransformer(YAxis.AxisDependency.LEFT).getValuesByTouchPoint(tappedX, tappedY);
+                int current = (int) point.x;
+                if(current >= 0 && current < chartDataList.size()) {
+                    performedClicking(current);
+                    Highlight h = new Highlight((float) point.x, (float) chartDataList.get(current).getVal(), 0);
+                    chart.highlightValue(h);
                 }
-            });
+                return true;
+            }
+        });
 
 
 
         //    setOnGestureTouch();
-           // setListenerOnChart();
+        // setListenerOnChart();
     }
 
 
@@ -676,7 +671,7 @@ public class App extends AppCompatActivity implements LocationListener {
             defaultFontTypefaceField.setAccessible(true);
             defaultFontTypefaceField.set(null, customFontTypeface);
         } catch (Exception e) {
-           // Log.e("Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
+            // Log.e("Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
         }
     }
 
@@ -712,11 +707,9 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
     private void displayData(int pos) {
-   //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
+        //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
         showTextLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
-        linearLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
-        down_layout_full.setBackgroundColor(getResources().getColor(R.color.white));
         airQualityTextView.setText(airQuality);
         mainTextViewCube.setText(currentValueUnit);
         mainTextView.setText(new DecimalFormat("##.##").format(currentValueScreen));
@@ -732,16 +725,9 @@ public class App extends AppCompatActivity implements LocationListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
         displayRecommendations(pos);
 //        if(chart != null)
 //            chart.setBackgroundColor(Color.parseColor(currentLayoutColor));
-=======
-
-        if(stations.getVisibility() == View.GONE)
-            displayRecommendations();
-
->>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
 
 
     }
@@ -1133,14 +1119,6 @@ public class App extends AppCompatActivity implements LocationListener {
             air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,isGeorgian?12:19);
             stations.setVisibility(View.GONE);
             chartLayout.setVisibility(View.GONE);
-<<<<<<< HEAD
-=======
-            recommendLayout.setVisibility(View.VISIBLE);
-            main_data_view.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
-            layoutParams.setMargins(0, 65, 0, 0);
-            main_data_view.setLayoutParams(layoutParams);
->>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
 
             main_data_view.setVisibility(View.VISIBLE);
 //            main_data_view.setOrientation(LinearLayout.VERTICAL);
@@ -1157,16 +1135,15 @@ public class App extends AppCompatActivity implements LocationListener {
 
             mainTextView.setVisibility(View.VISIBLE);
             mainTextViewCube.setVisibility(View.VISIBLE);
+            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
+            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
+            showDataParam.weight = 7;
+            showDataLayout.setLayoutParams(showDataParam);
 
-//            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
-//            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
-//            showDataParam.weight = 7;
-//            showDataLayout.setLayoutParams(showDataParam);
-//
-//            linearLayout.setWeightSum(8);
-
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+            linearLayout.setWeightSum(8);
             RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(300);
+            rotate.setDuration(500);
             rotate.setInterpolator(new LinearInterpolator());
             ImageView image= (ImageView) findViewById(R.id.showStation);
             image.startAnimation(rotate);
@@ -1184,7 +1161,6 @@ public class App extends AppCompatActivity implements LocationListener {
             displayChart();
             stations.setVisibility(View.VISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
             main_data_view.setVisibility(View.GONE);
 //            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
 //            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) main_data_view.getLayoutParams();
@@ -1198,37 +1174,13 @@ public class App extends AppCompatActivity implements LocationListener {
 //            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
 //
 //            main_data_view.setLayoutParams(layoutParams);
-=======
-            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
 
-            recommendLayout.setVisibility(View.GONE);
-
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
-            layoutParams.setMargins(0, 0, 0, 0);
-            air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
-            params.gravity = Gravity.CENTER_VERTICAL;
-            params.setMargins(0,0,0,10);
-            air_quality_static.setLayoutParams(params);
-
-            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
-
-            main_data_view.setLayoutParams(layoutParams);
->>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
-
-//            linearLayout.setWeightSum(4);
-//
-//            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
-//            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
-//            showDataParam.weight = 3;
-//            showDataLayout.setLayoutParams(showDataParam);
-//
-//            LinearLayout showTextLayout = (LinearLayout) findViewById(R.id.showTextLayout);
-//            LinearLayout.LayoutParams showTextLayoutParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
-//            showDataParam.weight = 1;
-//            showTextLayout.setLayoutParams(showTextLayoutParam);
-
-
+            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
+            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
+            showDataParam.weight = 1;
+            showDataLayout.setLayoutParams(showDataParam);
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+            linearLayout.setWeightSum(2);
 
             RelativeLayout.LayoutParams paramsPollutanatn =  (RelativeLayout.LayoutParams) pollutantLayout.getLayoutParams();
             paramsPollutanatn.topMargin = dpToPx(20);
@@ -1255,28 +1207,23 @@ public class App extends AppCompatActivity implements LocationListener {
             locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
             lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                List<String> providers = locationManager.getProviders(true);
-                Location bestLocation = null;
-                for (String provider : providers) {
-                    Location l = locationManager.getLastKnownLocation(provider);
-                    if (l == null) {
-                        continue;
-                    }
-                    if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                        bestLocation = l;
-                    }
+            List<String> providers = locationManager.getProviders(true);
+            Location bestLocation = null;
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
                 }
-                lastKnownLocation = bestLocation;
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    bestLocation = l;
+                }
+            }
+            lastKnownLocation = bestLocation;
 
         }
         catch(SecurityException e) {
             e.printStackTrace();
         }
-    }
-
-    public void removeUpdates() {
-        if(!(locationManager == null ))
-            locationManager.removeUpdates(this);
     }
 
     private int FASTEST_INTERVAL = 20000; // use whatever suits you
@@ -1299,10 +1246,11 @@ public class App extends AppCompatActivity implements LocationListener {
                 updateLocationandReport = true;
             }
         }
-        if(updateLocationandReport){
-            removeUpdates();
-            reload();
-        }
+//        if(updateLocationandReport){
+//            SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+//            editor.pu("lang", "ka");
+//            editor.apply();
+//        }
     }
     @Override
     public void onProviderDisabled(String provider) {
@@ -1316,7 +1264,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onProviderEnabled(String provider) {
-       this.recreate();
+        reload();
     }
 
 
@@ -1385,7 +1333,6 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
                 }else if(item.getItemId() == R.id.recomendation){
-
                     Intent intent = new Intent(App.this, WebViewAct.class);
                     String url = isGeorgian ? "file:///android_asset/html/recommendations_ka.html" : "file:///android_asset/html/recommendations_en.html";
                     intent.putExtra("url", url+"?no_header_footer=true");
@@ -1413,13 +1360,15 @@ public class App extends AppCompatActivity implements LocationListener {
                 getBaseContext().getResources().getDisplayMetrics());
     }
 
-
-    public void reload(){
-            Log.v("Example", "Force restart");
-            Intent intent = new Intent(this, LoadActivity.class);
-            startActivity(intent);
-            finish();
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
+
 
     @Override
     protected void onStop() {
@@ -1428,7 +1377,6 @@ public class App extends AppCompatActivity implements LocationListener {
             locationManager.removeUpdates(this);
         }
     }
-
 
 
     @Override
@@ -1441,13 +1389,11 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     protected void onRestart() {
         super.onRestart();
-    }
-
-    public void checkWasWebView(){
         SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
         boolean previousWasWeb = prefs2.getBoolean("wasWebView", false);
         if (!previousWasWeb){
-            reload();
+            Intent intent = new Intent(App.this, LoadActivity.class);
+            startActivity(intent);
         }else {
             SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
             editor.putBoolean("wasWebView", false);
@@ -1457,7 +1403,8 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onBackPressed() {
-        finish();
+//        Intent intent = new Intent(App.this, LoadActivity.class);
+//        startActivity(intent);
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
         homeIntent.addCategory( Intent.CATEGORY_HOME );
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
