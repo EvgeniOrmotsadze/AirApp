@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -21,6 +22,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -95,6 +97,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -111,8 +114,10 @@ public class App extends AppCompatActivity implements LocationListener {
     private LinearLayout stations;
     private LinearLayout showTextLayout;
     private LinearLayout actionbarLayout;
+    private LinearLayout pollutantLayout;
     private LinearLayout main_data_view;
     private RelativeLayout chartLayout;
+
 
     private  DrawerLayout drawerLayout;
 
@@ -141,7 +146,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
     private String data;
 
-    private String currentLayoutColor;
+    private String currentLayoutColor = "#A3AAA6";;
     private String textOfCenter;
     private String airQuality;
     private double currentValueScreen;
@@ -214,14 +219,14 @@ public class App extends AppCompatActivity implements LocationListener {
 
         recommendLayout = findViewById(R.id.recommendLayout);
         recommendText = findViewById(R.id.recommendText);
-        recommendLayout.setVisibility(View.GONE);
-
+        recommendLayout.setVisibility(View.VISIBLE);
+        pollutantLayout = findViewById(R.id.pollutantLayout);
         pollutant_text = findViewById(R.id.pollutant_text);
 
         stations = (LinearLayout) findViewById(R.id.station_layout);
         stations.setVisibility(View.GONE);
         chartLayout.setVisibility(View.GONE);
-        showTextLayout = (LinearLayout) findViewById(R.id.showTextLayout);
+        showTextLayout =  findViewById(R.id.showTextLayout);
         air_quality_static  = findViewById(R.id.air_quality_static);
         air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,isGeorgian?12:19);
 
@@ -284,7 +289,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
         currentSubstance = getMaxPopulationSubstance();
 
-        displayData();
+        displayData(0);
 
 
         final MainAdapter adapter = new MainAdapter(App.this,stationSubstance,isGeorgian);
@@ -312,8 +317,9 @@ public class App extends AppCompatActivity implements LocationListener {
                     textOfCenter = adapter.getItem(position).getName();
 
                 }
-                displayData();
-             //   displayChart();
+                displayData(1);
+                recommendLayout.setVisibility(View.GONE);
+                displayChart();
             }
         });
 
@@ -321,10 +327,20 @@ public class App extends AppCompatActivity implements LocationListener {
 
      //   displayChart();
        // NavigationView navView = (NavigationView) findViewById(R.id.navigation);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+        Date nowDate = new Date();
+        String formatFirst = df.format(nowDate);
+        setTimeAgoOnTextView(formatFirst.substring(11,16),formatFirst.substring(0,10));
     }
 
-    private void displayRecommendations(){
+    private void displayRecommendations(int pos){
         try {
+            if(pos > 0){
+                recommendLayout.setVisibility(View.INVISIBLE);
+            }else {
+                recommendLayout.setVisibility(View.VISIBLE);
+            }
             new HttpAsyncTaskRecomendations().execute("http://air.gov.ge/api/recommendations/?code=" + currentSubstance.getRecommendName() + "&level=" + currentSubstance.getRecommendLvl()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -346,7 +362,7 @@ public class App extends AppCompatActivity implements LocationListener {
         protected void onPostExecute(String result) {
             if(result != null && result.length() > 0) {
                 try {
-                    recommendLayout.setVisibility(View.VISIBLE);
+
                     JSONArray jsonArray = new JSONArray(result);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     recommendText.setText(isGeorgian? jsonObject.getString("recommendation_short") : jsonObject.getString("recommendation_short_eng"));
@@ -618,7 +634,6 @@ public class App extends AppCompatActivity implements LocationListener {
                         performedClicking(current);
                         Highlight h = new Highlight((float) point.x, (float) chartDataList.get(current).getVal(), 0);
                         chart.highlightValue(h);
-                        displayData();
                     }
                     return true;
                 }
@@ -638,7 +653,7 @@ public class App extends AppCompatActivity implements LocationListener {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 performedClicking((int)e.getX());
-                displayData();
+                displayData(0);
             }
 
             @Override
@@ -664,6 +679,7 @@ public class App extends AppCompatActivity implements LocationListener {
     private void performedClicking(int x){
         int current = x;
         currentValueScreen = chartDataList.get(current).getVal();
+        mainTextView.setText(new DecimalFormat("##.##").format(currentValueScreen));
         setTimeAgoOnTextView(chartDataList.get(current).getDate().substring(11,16),chartDataList.get(current).getDate().substring(0,10));
         if(currentValueScreen > currentSubstance.getGoodFrom() && currentValueScreen <= currentSubstance.getGoodTo()){
             currentLayoutColor = currentSubstance.getGoodColor();
@@ -690,11 +706,9 @@ public class App extends AppCompatActivity implements LocationListener {
     }
 
 
-    private void displayData() {
+    private void displayData(int pos) {
    //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
-
-        recommendLayout.setVisibility(View.GONE);
         showTextLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
         airQualityTextView.setText(airQuality);
         mainTextViewCube.setText(currentValueUnit);
@@ -711,7 +725,7 @@ public class App extends AppCompatActivity implements LocationListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        displayRecommendations();
+        displayRecommendations(pos);
 //        if(chart != null)
 //            chart.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
@@ -801,12 +815,14 @@ public class App extends AppCompatActivity implements LocationListener {
 
         JSONArray jsonArray = new JSONArray(data);
 
+
         for (int i = 0; i < jsonArray.length(); i++) {
             String st = jsonArray.get(i).toString();
             stationList.add(st);
         }
 
         currentStation = this.getIntent().getStringExtra("currentStation");
+
 
 
         if(currentStation == null || currentStation.equals("")){
@@ -824,6 +840,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
         JSONObject jsonObject = new JSONObject(currentStation);
         JSONArray eqip = jsonObject.getJSONArray("stationequipment_set");
+
         readStationEquipment(eqip);
 
     }
@@ -865,6 +882,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
     private void readStationEquipment(JSONArray jsonArray) throws JSONException {
+
         for (int i = 0; i < jsonArray.length(); i++) {
             String st = jsonArray.get(i).toString();
             stationEquipmentList.add(st);
@@ -991,6 +1009,7 @@ public class App extends AppCompatActivity implements LocationListener {
         }else {
             recommendName = name;
         }
+
         substance1.setRecommendName(recommendName);
         substance1.setRecommendLvl(recommendLvl);
         substance1.setAirQuality(airQuality);
@@ -1100,14 +1119,19 @@ public class App extends AppCompatActivity implements LocationListener {
             air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,isGeorgian?12:19);
             stations.setVisibility(View.GONE);
             chartLayout.setVisibility(View.GONE);
-            main_data_view.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
-            layoutParams.setMargins(0, 65, 0, 0);
-            main_data_view.setLayoutParams(layoutParams);
 
-            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
-            params.gravity = Gravity.CENTER_HORIZONTAL;
-            air_quality_static.setLayoutParams(params);
+            main_data_view.setVisibility(View.VISIBLE);
+//            main_data_view.setOrientation(LinearLayout.VERTICAL);
+//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) main_data_view.getLayoutParams();
+//            layoutParams.setMargins(0, dpToPx(75), 0, 0);
+//            main_data_view.setLayoutParams(layoutParams);
+//
+//
+//
+//
+//            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
+//            params.gravity = Gravity.CENTER_HORIZONTAL;
+//            air_quality_static.setLayoutParams(params);
 
             mainTextView.setVisibility(View.VISIBLE);
             mainTextViewCube.setVisibility(View.VISIBLE);
@@ -1124,26 +1148,32 @@ public class App extends AppCompatActivity implements LocationListener {
             ImageView image= (ImageView) findViewById(R.id.showStation);
             image.startAnimation(rotate);
             rotate.setFillAfter(true);
-
             chart.destroyDrawingCache();
 
+            pollutantLayout = findViewById(R.id.pollutantLayout);
 
+            RelativeLayout.LayoutParams paramsPollutanatn =  (RelativeLayout.LayoutParams) pollutantLayout.getLayoutParams();
+            paramsPollutanatn.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+            pollutantLayout.setLayoutParams(paramsPollutanatn);
+            recommendLayout.setVisibility(View.VISIBLE);
         }else {
+            recommendLayout.setVisibility(View.GONE);
             displayChart();
             stations.setVisibility(View.VISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
-            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
-            layoutParams.setMargins(0, 0, 0, 0);
-            air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
-            params.gravity = Gravity.CENTER_VERTICAL;
-            params.setMargins(0,0,0,10);
-            air_quality_static.setLayoutParams(params);
-
-            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
-
-            main_data_view.setLayoutParams(layoutParams);
+            main_data_view.setVisibility(View.GONE);
+//            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
+//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) main_data_view.getLayoutParams();
+//            layoutParams.setMargins(0, dpToPx(75), 0, 0);
+//            air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+//            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
+//            params.gravity = Gravity.CENTER_VERTICAL;
+//            params.setMargins(0,0,0,dpToPx(8));
+//            air_quality_static.setLayoutParams(params);
+//
+//            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
+//
+//            main_data_view.setLayoutParams(layoutParams);
 
             LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
             LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
@@ -1151,6 +1181,10 @@ public class App extends AppCompatActivity implements LocationListener {
             showDataLayout.setLayoutParams(showDataParam);
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
             linearLayout.setWeightSum(2);
+
+            RelativeLayout.LayoutParams paramsPollutanatn =  (RelativeLayout.LayoutParams) pollutantLayout.getLayoutParams();
+            paramsPollutanatn.topMargin = dpToPx(20);
+            pollutantLayout.setLayoutParams(paramsPollutanatn);
 
             RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             rotate.setDuration(500);
@@ -1162,6 +1196,11 @@ public class App extends AppCompatActivity implements LocationListener {
         }
     }
 
+
+
+    public static int dpToPx(final float dp) {
+        return Math.round(dp * (Resources.getSystem().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 
     void getLocation() {
         try {

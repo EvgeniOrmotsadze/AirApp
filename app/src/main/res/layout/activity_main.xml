@@ -80,172 +80,187 @@
                         android:layout_weight="1"
                         android:background="@color/lightGreen"
                         android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10sp"
-
-                            android:clickable="true"
-
-                            android:onClick="showStationList"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/station_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left"
-                                android:layout_marginLeft="10sp"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:text=""
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:id="@+id/station_distance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:layout_marginLeft="10sp"
-                                android:text=""
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:id="@+id/main_data_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:id="@+id/air_quality_static"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:layout_margin="15dp"
-                                android:layout_marginBottom="8dp"
-                                android:text="@string/air_quality"
-                                android:textColor="@color/white"
-                                android:layout_gravity="center_vertical"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/air_condition"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:layout_gravity="center_horizontal"
-                                android:fontFamily="@font/sofia_pro_bold"
-                                android:text="Good"
-                                android:textColor="@color/white"
-                                android:textSize="55sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="30sp"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginRight="30sp"
-                            android:gravity="center">
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10sp"
+                                android:background="@drawable/border"
+                                android:layout_alignParentTop="true"
+                                android:paddingTop="6dp"
+                                android:paddingBottom="6dp"
+                                android:clickable="true"
+                                android:onClick="showStationList"
+                                android:orientation="vertical">
 
+                                <TextView
+                                    android:id="@+id/station_address"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:layout_marginLeft="10sp"
+                                    android:fontFamily="@font/sofia_pro_bold"
+                                    android:text=""
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/station_distance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:fontFamily="@font/sofia_pro_bold"
+                                    android:layout_marginLeft="10sp"
+                                    android:text=""
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/main_data_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="60dp"
+                                android:gravity="clip_horizontal"
+                                android:layout_centerHorizontal="true"
+                                android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:id="@+id/pollutant_text"
+                                    android:id="@+id/air_quality_static"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
                                     android:fontFamily="@font/sofia_pro_bold"
-                                    android:text="@string/high_pollution"
+                                    android:layout_margin="15dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="@string/air_quality"
                                     android:textColor="@color/white"
-                                    android:textSize="16sp" />
+                                    android:layout_gravity="center_vertical"
+                                    android:textSize="18sp" />
 
                                 <TextView
-                                    android:id="@+id/element_name"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:background="@drawable/shape_text_display"
+                                    android:id="@+id/air_condition"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sofia_pro_bold"
-                                    android:text="SO2"
-                                    android:onClick="showPollution"
-                                    android:textAlignment="center"
+                                    android:text="Good"
                                     android:textColor="@color/white"
-                                    android:textSize="17sp" />
+                                    android:textSize="55sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/pollutantLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="50dp"
+                                android:paddingTop="28dp"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="20dp"
+                                android:gravity="center">
+
 
                                     <TextView
-                                        android:id="@+id/main_text_view"
                                         android:layout_width="wrap_content"
+                                        android:id="@+id/pollutant_text"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="10dp"
+                                        android:fontFamily="@font/sofia_pro_bold"
+                                        android:text="@string/high_pollution"
+                                        android:textColor="@color/white"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                        android:id="@+id/element_name"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_marginRight="5dp"
                                         android:layout_marginLeft="5dp"
-                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/shape_text_display"
                                         android:fontFamily="@font/sofia_pro_bold"
-                                        android:text="19.50"
+                                        android:text="SO2"
+                                        android:onClick="showPollution"
+                                        android:textAlignment="center"
                                         android:textColor="@color/white"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
+                                        android:textSize="17sp" />
 
-                                    <TextView
-                                        android:id="@+id/main_text_view_cube"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="4dp"
-                                        android:fontFamily="@font/sofia_pro_bold"
-                                        android:text="ug/m3"
-                                        android:textColor="@color/white"
-                                        android:textSize="11sp" />
-                        </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/main_text_view"
+                                            android:layout_width="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/sofia_pro_bold"
+                                            android:text="19.50"
+                                            android:textColor="@color/white"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/recommendLayout"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="110sp"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20sp"
-                            android:layout_marginRight="20sp"
-                            android:background="@drawable/recomend_shape"
-                            >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="20sp"
+                                        <TextView
+                                            android:id="@+id/main_text_view_cube"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="4dp"
+                                            android:fontFamily="@font/sofia_pro_bold"
+                                            android:text="ug/m3"
+                                            android:textColor="@color/white"
+                                            android:textSize="11sp" />
+                            </LinearLayout>
 
-                            android:fitsSystemWindows="true"
-                            android:fontFamily="@font/sofia_pro_bold"
-                            android:text="@string/recomendations"
-                            android:textIsSelectable="true"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="@color/white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:id="@+id/recommendText"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginRight="20sp"
-                            android:layout_marginLeft="20sp"
-                            android:layout_marginBottom="5dp"
-                            android:fitsSystemWindows="true"
-                            android:fontFamily="@font/sofia_pro_medium"
-                            android:text=""
-                            android:textIsSelectable="true"
-                            android:textSize="13sp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/recommendLayout"
+                                android:layout_gravity="end"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="15dp"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:background="@drawable/recomend_shape"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="20sp"
 
-                        </LinearLayout>
+                                    android:fitsSystemWindows="true"
+                                    android:fontFamily="@font/sofia_pro_bold"
+                                    android:text="@string/recomendations"
+                                    android:textIsSelectable="true"
+                                    android:textStyle="bold"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/white"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:id="@+id/recommendText"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginRight="20sp"
+                                    android:layout_marginLeft="20sp"
+                                    android:layout_marginBottom="5dp"
+                                    android:fitsSystemWindows="true"
+                                    android:fontFamily="@font/sofia_pro_medium"
+                                    android:text=""
+                                    android:textIsSelectable="true"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+
+
+
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -335,14 +350,6 @@
                                     android:orientation="vertical"
                                     android:weightSum="1">
 
-                                    <!--<TextView-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:textStyle="bold"-->
-                                    <!--android:textSize="14sp"-->
-                                    <!--android:layout_weight="0.5"-->
-                                    <!--android:text="237 M"-->
-                                    <!--android:id="@+id/station_distance"/>-->
 
                                     <TextView
                                         android:id="@+id/time_ago_v"
@@ -351,7 +358,7 @@
                                         android:layout_marginTop="2sp"
                                         android:layout_weight="0.6"
                                         android:fontFamily="@font/sofia_pro_medium"
-                                        android:text="22s ago"
+                                        android:text=""
                                         android:textSize="14sp"
                                         android:textStyle="bold" />
 
@@ -360,7 +367,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.5"
-                                        android:text="237 M"
+                                        android:text=""
                                         android:textSize="12sp"
                                         android:textStyle="bold" />
 
@@ -397,6 +404,7 @@
             android:id="@+id/station_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="25dp"
