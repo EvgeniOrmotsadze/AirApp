@@ -159,15 +159,20 @@ public class App extends AppCompatActivity implements LocationListener {
     private TextView air_quality_static;
     private TextView pollutant_text;
     private String currentStation;
+    private LinearLayout linearLayout;
+    private LinearLayout down_layout_full;
+    private RelativeLayout down_layout;
 
     private Toolbar myToolbar;
     private ActionBar actionbar;
 
+    private LinearLayout backgroundLayout;
     private Location lastKnownLocation;
     private boolean isGeorgian;
 
     public static final String GEO = "ka";
     public static final String ENG = "en";
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -194,7 +199,7 @@ public class App extends AppCompatActivity implements LocationListener {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         setTitle(null);
-
+        linearLayout = findViewById(R.id.linearLayout);
         myToolbar.setBackgroundColor(getResources().getColor(R.color.white));
         actionbar = getSupportActionBar();
         Drawable menuIcon = getResources().getDrawable(R.mipmap.white_menu_icon);
@@ -255,7 +260,8 @@ public class App extends AppCompatActivity implements LocationListener {
         stationDistance = findViewById(R.id.station_distance);
         timeAgo = findViewById(R.id.time_ago_v);
         dateTime = findViewById(R.id.station_date);
-
+        down_layout = findViewById(R.id.down_layout);
+        down_layout_full = findViewById(R.id.down_layout_full);
         airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian? 35 : 55);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -278,6 +284,8 @@ public class App extends AppCompatActivity implements LocationListener {
             SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
             data = prefs2.getString("data",null);
         }
+
+
 
         try {
             readStations(data);
@@ -323,6 +331,9 @@ public class App extends AppCompatActivity implements LocationListener {
             }
         });
 
+
+        setTimeAgoOnTextView(chartDataList.get(chartDataList.size()-1).getDate().substring(11,16),chartDataList.get(chartDataList.size()-1).getDate().substring(0,10));
+        getIntent().setAction("Already created");
 
 
      //   displayChart();
@@ -458,7 +469,7 @@ public class App extends AppCompatActivity implements LocationListener {
                             == PackageManager.PERMISSION_GRANTED) {
 
                         if(lastKnownLocation == null) {
-                            reload();
+                           this.recreate();
                             getLocation();
                         }
                     }
@@ -478,17 +489,11 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     protected void onResume() {
+
+      //  checkWasWebView();
         super.onResume();
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-
-            == PackageManager.PERMISSION_GRANTED) {
-
-        getLocation();
     }
-//        Intent intent = new Intent(App.this, LoadActivity.class);
-//        startActivity(intent);
-}
+
 
     @Override
     protected void onDestroy() {
@@ -512,7 +517,7 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        reload();
+        checkWasWebView();
     }
 
     @SuppressLint("ResourceType")
@@ -710,6 +715,8 @@ public class App extends AppCompatActivity implements LocationListener {
    //     myToolbar.setBackgroundColor(Color.parseColor(currentLayoutColor));
 
         showTextLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
+        linearLayout.setBackgroundColor(Color.parseColor(currentLayoutColor));
+        down_layout_full.setBackgroundColor(getResources().getColor(R.color.white));
         airQualityTextView.setText(airQuality);
         mainTextViewCube.setText(currentValueUnit);
         mainTextView.setText(new DecimalFormat("##.##").format(currentValueScreen));
@@ -725,9 +732,16 @@ public class App extends AppCompatActivity implements LocationListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
         displayRecommendations(pos);
 //        if(chart != null)
 //            chart.setBackgroundColor(Color.parseColor(currentLayoutColor));
+=======
+
+        if(stations.getVisibility() == View.GONE)
+            displayRecommendations();
+
+>>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
 
 
     }
@@ -1119,6 +1133,14 @@ public class App extends AppCompatActivity implements LocationListener {
             air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,isGeorgian?12:19);
             stations.setVisibility(View.GONE);
             chartLayout.setVisibility(View.GONE);
+<<<<<<< HEAD
+=======
+            recommendLayout.setVisibility(View.VISIBLE);
+            main_data_view.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
+            layoutParams.setMargins(0, 65, 0, 0);
+            main_data_view.setLayoutParams(layoutParams);
+>>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
 
             main_data_view.setVisibility(View.VISIBLE);
 //            main_data_view.setOrientation(LinearLayout.VERTICAL);
@@ -1135,15 +1157,16 @@ public class App extends AppCompatActivity implements LocationListener {
 
             mainTextView.setVisibility(View.VISIBLE);
             mainTextViewCube.setVisibility(View.VISIBLE);
-            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
-            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
-            showDataParam.weight = 7;
-            showDataLayout.setLayoutParams(showDataParam);
 
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-            linearLayout.setWeightSum(8);
+//            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
+//            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
+//            showDataParam.weight = 7;
+//            showDataLayout.setLayoutParams(showDataParam);
+//
+//            linearLayout.setWeightSum(8);
+
             RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(500);
+            rotate.setDuration(300);
             rotate.setInterpolator(new LinearInterpolator());
             ImageView image= (ImageView) findViewById(R.id.showStation);
             image.startAnimation(rotate);
@@ -1161,6 +1184,7 @@ public class App extends AppCompatActivity implements LocationListener {
             displayChart();
             stations.setVisibility(View.VISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
             main_data_view.setVisibility(View.GONE);
 //            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
 //            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) main_data_view.getLayoutParams();
@@ -1174,13 +1198,37 @@ public class App extends AppCompatActivity implements LocationListener {
 //            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
 //
 //            main_data_view.setLayoutParams(layoutParams);
+=======
+            main_data_view.setOrientation(LinearLayout.HORIZONTAL);
 
-            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
-            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
-            showDataParam.weight = 1;
-            showDataLayout.setLayoutParams(showDataParam);
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-            linearLayout.setWeightSum(2);
+            recommendLayout.setVisibility(View.GONE);
+
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) main_data_view.getLayoutParams();
+            layoutParams.setMargins(0, 0, 0, 0);
+            air_quality_static.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
+            params.gravity = Gravity.CENTER_VERTICAL;
+            params.setMargins(0,0,0,10);
+            air_quality_static.setLayoutParams(params);
+
+            airQualityTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, isGeorgian?20:25);
+
+            main_data_view.setLayoutParams(layoutParams);
+>>>>>>> ead8561716e22f26e7e3c145704c666a83abc3e8
+
+//            linearLayout.setWeightSum(4);
+//
+//            LinearLayout showDataLayout = (LinearLayout) findViewById(R.id.showDataLayout);
+//            LinearLayout.LayoutParams showDataParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
+//            showDataParam.weight = 3;
+//            showDataLayout.setLayoutParams(showDataParam);
+//
+//            LinearLayout showTextLayout = (LinearLayout) findViewById(R.id.showTextLayout);
+//            LinearLayout.LayoutParams showTextLayoutParam = (LinearLayout.LayoutParams)showDataLayout.getLayoutParams();
+//            showDataParam.weight = 1;
+//            showTextLayout.setLayoutParams(showTextLayoutParam);
+
+
 
             RelativeLayout.LayoutParams paramsPollutanatn =  (RelativeLayout.LayoutParams) pollutantLayout.getLayoutParams();
             paramsPollutanatn.topMargin = dpToPx(20);
@@ -1226,6 +1274,11 @@ public class App extends AppCompatActivity implements LocationListener {
         }
     }
 
+    public void removeUpdates() {
+        if(!(locationManager == null ))
+            locationManager.removeUpdates(this);
+    }
+
     private int FASTEST_INTERVAL = 20000; // use whatever suits you
 
     private long locationUpdatedAt = Long.MIN_VALUE;
@@ -1246,11 +1299,10 @@ public class App extends AppCompatActivity implements LocationListener {
                 updateLocationandReport = true;
             }
         }
-//        if(updateLocationandReport){
-//            SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
-//            editor.pu("lang", "ka");
-//            editor.apply();
-//        }
+        if(updateLocationandReport){
+            removeUpdates();
+            reload();
+        }
     }
     @Override
     public void onProviderDisabled(String provider) {
@@ -1264,7 +1316,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onProviderEnabled(String provider) {
-        reload();
+       this.recreate();
     }
 
 
@@ -1333,6 +1385,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
 
                 }else if(item.getItemId() == R.id.recomendation){
+
                     Intent intent = new Intent(App.this, WebViewAct.class);
                     String url = isGeorgian ? "file:///android_asset/html/recommendations_ka.html" : "file:///android_asset/html/recommendations_en.html";
                     intent.putExtra("url", url+"?no_header_footer=true");
@@ -1360,15 +1413,13 @@ public class App extends AppCompatActivity implements LocationListener {
                 getBaseContext().getResources().getDisplayMetrics());
     }
 
-    public void reload() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
 
+    public void reload(){
+            Log.v("Example", "Force restart");
+            Intent intent = new Intent(this, LoadActivity.class);
+            startActivity(intent);
+            finish();
+    }
 
     @Override
     protected void onStop() {
@@ -1377,6 +1428,7 @@ public class App extends AppCompatActivity implements LocationListener {
             locationManager.removeUpdates(this);
         }
     }
+
 
 
     @Override
@@ -1389,11 +1441,13 @@ public class App extends AppCompatActivity implements LocationListener {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    public void checkWasWebView(){
         SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
         boolean previousWasWeb = prefs2.getBoolean("wasWebView", false);
         if (!previousWasWeb){
-            Intent intent = new Intent(App.this, LoadActivity.class);
-            startActivity(intent);
+            reload();
         }else {
             SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
             editor.putBoolean("wasWebView", false);
@@ -1403,8 +1457,7 @@ public class App extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onBackPressed() {
-//        Intent intent = new Intent(App.this, LoadActivity.class);
-//        startActivity(intent);
+        finish();
         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
         homeIntent.addCategory( Intent.CATEGORY_HOME );
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
