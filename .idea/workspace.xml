@@ -5,14 +5,23 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="da525c51-fb86-4072-964b-5b04a62bfeae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/MapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/MapActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/StationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/StationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/map_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/map_layout.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,24 +43,206 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-199">
+              <caret line="892" lean-forward="true" selection-start-line="892" selection-end-line="892" />
+              <folding>
+                <element signature="e#5520#12227#0" />
+                <element signature="e#9598#9648#0" expanded="true" />
+                <element signature="e#9650#9680#0" expanded="true" />
+                <element signature="e#10567#11859#0" expanded="true" />
+                <element signature="e#11858#11859#0" expanded="true" />
+                <element signature="e#12233#12838#0" />
+                <element signature="e#12844#13685#0" />
+                <element signature="e#13691#14150#0" />
+                <element signature="e#14156#15404#0" />
+                <element signature="e#15479#15982#0" />
+                <element signature="e#15992#17170#0" />
+                <element signature="e#17177#17556#0" />
+                <element signature="e#17562#17751#0" />
+                <element signature="e#17757#18031#0" />
+                <element signature="e#18037#18199#0" />
+                <element signature="e#18205#23345#0" />
+                <element signature="e#20908#21099#0" expanded="true" />
+                <element signature="e#21098#21099#0" expanded="true" />
+                <element signature="e#22552#23266#0" expanded="true" />
+                <element signature="e#23265#23266#0" expanded="true" />
+                <element signature="e#23353#23808#0" />
+                <element signature="e#23814#24480#0" />
+                <element signature="e#24487#26128#0" />
+                <element signature="e#26134#26264#0" />
+                <element signature="e#26271#27507#0" />
+                <element signature="e#27513#28011#0" />
+                <element signature="e#28017#28960#0" />
+                <element signature="e#28967#30485#0" />
+                <element signature="e#30491#31399#0" />
+                <element signature="e#31405#31751#0" />
+                <element signature="e#31757#32685#0" />
+                <element signature="e#32692#32995#0" />
+                <element signature="e#33004#38507#0" />
+                <element signature="e#38518#38886#0" />
+                <element signature="e#38892#39458#0" />
+                <element signature="e#39589#40090#0" />
+                <element signature="e#40096#40969#0" />
+                <element signature="e#40976#41370#0" />
+                <element signature="e#41377#45848#0" />
+                <element signature="e#45856#46019#0" />
+                <element signature="e#46025#46971#0" />
+                <element signature="e#47100#48071#0" />
+                <element signature="e#48076#48270#0" />
+                <element signature="e#48469#53122#0" />
+                <element signature="e#48656#53114#0" expanded="true" />
+                <element signature="e#49982#52073#0" expanded="true" />
+                <element signature="e#52072#52073#0" expanded="true" />
+                <element signature="e#53113#53114#0" expanded="true" />
+                <element signature="e#53129#53474#0" />
+                <element signature="e#53480#53736#0" />
+                <element signature="e#53743#53908#0" />
+                <element signature="e#53915#54088#0" />
+                <element signature="e#54096#54661#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8449">
-              <caret line="521" column="41" selection-start-line="521" selection-start-column="41" selection-end-line="521" selection-end-column="41" />
+            <state relative-caret-position="7650">
+              <caret line="506" column="38" selection-start-line="506" selection-start-column="38" selection-end-line="506" selection-end-column="38" />
               <folding>
+                <element signature="e#656#2080#0" />
                 <element signature="e#1810#1834#0" expanded="true" />
                 <element signature="e#6599#6620#0" expanded="true" />
                 <element signature="e#8745#8769#0" expanded="true" />
                 <element signature="e#12337#12361#0" expanded="true" />
                 <element signature="e#16163#16183#0" expanded="true" />
+                <element signature="e#30395#30414#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/StationActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="89" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="89" />
+              <folding>
+                <element signature="method#getStationList#0;class#StationActivity#0" />
+                <element signature="method#readStationEquipment#0;class#StationActivity#0" />
+                <element signature="method#substanceCompare#0;class#StationActivity#0" />
+                <element signature="method#getStationSubstance#0;class#StationActivity#0" />
+                <element signature="e#13935#14824#0" />
+                <element signature="method#onBackPressed#0;class#StationActivity#0" />
+                <element signature="method#reload#0;class#StationActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/station_list_activity.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-30">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#672#1579#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1360">
+              <caret line="80" column="31" lean-forward="true" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+              <folding>
+                <element signature="e#2667#2685#0" expanded="true" />
+                <element signature="e#2845#2863#0" expanded="true" />
+                <element signature="e#3019#3037#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/MapActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="397" column="8" selection-start-line="397" selection-start-column="8" selection-end-line="397" selection-end-column="8" />
+              <folding>
+                <element signature="method#onMapReady#0;class#MapActivity#0" />
+                <element signature="method#GetBitmapClippedCircle#0;class#MapActivity#0" />
+                <element signature="method#onMarkerClick#0;class#MapActivity#0" />
+                <element signature="method#getStationList#0;class#MapActivity#0" />
+                <element signature="method#readStationsForColor#0;class#MapActivity#0" />
+                <element signature="method#readStationEquipment#0;class#MapActivity#0" />
+                <element signature="method#substanceCompare#0;class#MapActivity#0" />
+                <element signature="method#getStationSubstance#0;class#MapActivity#0" />
+                <element signature="method#getStationById#0;class#MapActivity#0" />
+                <element signature="method#onInfoWindowClick#0;class#MapActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/nav_item.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar_map.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/map_layout.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+              <folding>
+                <element signature="e#230#553#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>menusi</find>
+      <find>menuh</find>
+      <find>menust</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,6 +251,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/App.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar_map.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/map_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/StationActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/MapActivity.java" />
       </list>
     </option>
   </component>
@@ -84,7 +280,35 @@
             <path>
               <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="airgov" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="AirApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
@@ -191,7 +415,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" visible="true" weight="0.14901665" />
+      <window_info content_ui="combo" id="Project" visible="true" weight="0.290469" />
       <window_info id="Structure" side_tool="true" />
       <window_info id="Build Variants" side_tool="true" />
       <window_info id="Image Layers" />
@@ -201,34 +425,214 @@
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Run" />
-      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Logcat" weight="0.86743045" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Android Profiler" />
       <window_info anchor="bottom" id="Debug" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Build" weight="0.3289689" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Build" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="right" id="Device File Explorer" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="right" id="Gradle" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Palette&#9;" />
-      <window_info active="true" anchor="right" id="Preview" visible="true" weight="0.18683812" />
+      <window_info anchor="right" id="Preview" weight="0.18683812" />
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/design/26.1.0/c7ac62df01dd0a97d93500ad3da7faebf03ba49/design-26.1.0-sources.jar!/android/support/design/widget/NavigationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar_stations.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="50" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="7" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-26/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="672" column="24" selection-start-line="672" selection-start-column="24" selection-end-line="672" selection-end-column="24" />
+          <folding>
+            <element signature="e#18772#18773#0" expanded="true" />
+            <element signature="e#18823#18824#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/stations_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="80" column="31" lean-forward="true" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+          <folding>
+            <element signature="e#2667#2685#0" expanded="true" />
+            <element signature="e#2845#2863#0" expanded="true" />
+            <element signature="e#3019#3037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/nav_item.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_action_bar_map.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8449">
-          <caret line="521" column="41" selection-start-line="521" selection-start-column="41" selection-end-line="521" selection-end-column="41" />
+        <state relative-caret-position="7650">
+          <caret line="506" column="38" selection-start-line="506" selection-start-column="38" selection-end-line="506" selection-end-column="38" />
           <folding>
+            <element signature="e#656#2080#0" />
             <element signature="e#1810#1834#0" expanded="true" />
             <element signature="e#6599#6620#0" expanded="true" />
             <element signature="e#8745#8769#0" expanded="true" />
             <element signature="e#12337#12361#0" expanded="true" />
             <element signature="e#16163#16183#0" expanded="true" />
+            <element signature="e#30395#30414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/station_list_activity.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#672#1579#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/map_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding>
+            <element signature="e#230#553#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-199">
+          <caret line="892" lean-forward="true" selection-start-line="892" selection-end-line="892" />
+          <folding>
+            <element signature="e#5520#12227#0" />
+            <element signature="e#9598#9648#0" expanded="true" />
+            <element signature="e#9650#9680#0" expanded="true" />
+            <element signature="e#10567#11859#0" expanded="true" />
+            <element signature="e#11858#11859#0" expanded="true" />
+            <element signature="e#12233#12838#0" />
+            <element signature="e#12844#13685#0" />
+            <element signature="e#13691#14150#0" />
+            <element signature="e#14156#15404#0" />
+            <element signature="e#15479#15982#0" />
+            <element signature="e#15992#17170#0" />
+            <element signature="e#17177#17556#0" />
+            <element signature="e#17562#17751#0" />
+            <element signature="e#17757#18031#0" />
+            <element signature="e#18037#18199#0" />
+            <element signature="e#18205#23345#0" />
+            <element signature="e#20908#21099#0" expanded="true" />
+            <element signature="e#21098#21099#0" expanded="true" />
+            <element signature="e#22552#23266#0" expanded="true" />
+            <element signature="e#23265#23266#0" expanded="true" />
+            <element signature="e#23353#23808#0" />
+            <element signature="e#23814#24480#0" />
+            <element signature="e#24487#26128#0" />
+            <element signature="e#26134#26264#0" />
+            <element signature="e#26271#27507#0" />
+            <element signature="e#27513#28011#0" />
+            <element signature="e#28017#28960#0" />
+            <element signature="e#28967#30485#0" />
+            <element signature="e#30491#31399#0" />
+            <element signature="e#31405#31751#0" />
+            <element signature="e#31757#32685#0" />
+            <element signature="e#32692#32995#0" />
+            <element signature="e#33004#38507#0" />
+            <element signature="e#38518#38886#0" />
+            <element signature="e#38892#39458#0" />
+            <element signature="e#39589#40090#0" />
+            <element signature="e#40096#40969#0" />
+            <element signature="e#40976#41370#0" />
+            <element signature="e#41377#45848#0" />
+            <element signature="e#45856#46019#0" />
+            <element signature="e#46025#46971#0" />
+            <element signature="e#47100#48071#0" />
+            <element signature="e#48076#48270#0" />
+            <element signature="e#48469#53122#0" />
+            <element signature="e#48656#53114#0" expanded="true" />
+            <element signature="e#49982#52073#0" expanded="true" />
+            <element signature="e#52072#52073#0" expanded="true" />
+            <element signature="e#53113#53114#0" expanded="true" />
+            <element signature="e#53129#53474#0" />
+            <element signature="e#53480#53736#0" />
+            <element signature="e#53743#53908#0" />
+            <element signature="e#53915#54088#0" />
+            <element signature="e#54096#54661#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/StationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="89" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="89" />
+          <folding>
+            <element signature="method#getStationList#0;class#StationActivity#0" />
+            <element signature="method#readStationEquipment#0;class#StationActivity#0" />
+            <element signature="method#substanceCompare#0;class#StationActivity#0" />
+            <element signature="method#getStationSubstance#0;class#StationActivity#0" />
+            <element signature="e#13935#14824#0" />
+            <element signature="method#onBackPressed#0;class#StationActivity#0" />
+            <element signature="method#reload#0;class#StationActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ge/gov/air/airgov/MapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="397" column="8" selection-start-line="397" selection-start-column="8" selection-end-line="397" selection-end-column="8" />
+          <folding>
+            <element signature="method#onMapReady#0;class#MapActivity#0" />
+            <element signature="method#GetBitmapClippedCircle#0;class#MapActivity#0" />
+            <element signature="method#onMarkerClick#0;class#MapActivity#0" />
+            <element signature="method#getStationList#0;class#MapActivity#0" />
+            <element signature="method#readStationsForColor#0;class#MapActivity#0" />
+            <element signature="method#readStationEquipment#0;class#MapActivity#0" />
+            <element signature="method#substanceCompare#0;class#MapActivity#0" />
+            <element signature="method#getStationSubstance#0;class#MapActivity#0" />
+            <element signature="method#getStationById#0;class#MapActivity#0" />
+            <element signature="method#onInfoWindowClick#0;class#MapActivity#0" />
           </folding>
         </state>
       </provider>

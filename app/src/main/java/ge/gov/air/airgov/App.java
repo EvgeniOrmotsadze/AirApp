@@ -1127,7 +1127,7 @@ public class App extends AppCompatActivity implements LocationListener {
 //            main_data_view.setLayoutParams(layoutParams);
 //
 //
-//
+//          show text when chart is showing
 //
 //            LinearLayout.LayoutParams params =  (LinearLayout.LayoutParams) air_quality_static.getLayoutParams();
 //            params.gravity = Gravity.CENTER_HORIZONTAL;
@@ -1195,7 +1195,6 @@ public class App extends AppCompatActivity implements LocationListener {
 
         }
     }
-
 
 
     public static int dpToPx(final float dp) {

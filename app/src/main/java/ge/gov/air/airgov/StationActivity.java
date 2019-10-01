@@ -396,6 +396,7 @@ public class StationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_action_bar_stations, menu);
+
         for(int i = 0; i < menu.size(); i++){
             Drawable drawable = menu.getItem(i).getIcon();
             if(drawable != null) {

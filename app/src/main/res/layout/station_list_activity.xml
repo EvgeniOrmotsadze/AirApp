@@ -35,7 +35,7 @@
                     android:text="Stations"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    />
 
             </android.support.v7.widget.Toolbar>
 
