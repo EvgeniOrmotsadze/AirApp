@@ -37,11 +37,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -164,7 +166,9 @@ public class App extends AppCompatActivity implements LocationListener {
     private ActionBar actionbar;
 
     private Location lastKnownLocation;
+
     private boolean isGeorgian;
+    private SwitchCompat switcher;
 
     public static final String GEO = "ka";
     public static final String ENG = "en";
@@ -212,6 +216,27 @@ public class App extends AppCompatActivity implements LocationListener {
         if (navigationView != null) {
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.language).setIcon(isGeorgian?R.drawable.english:R.drawable.georgia);
+
+            MenuItem menuItem = menu.findItem(R.id.nav_switch);
+            View actionView = MenuItemCompat.getActionView(menuItem);
+            switcher = (SwitchCompat) actionView.findViewById(R.id.switcher);
+            SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
+            boolean isDefault = prefs2.getBoolean("default_screen",false);
+            Log.d("isDefault",isDefault+"");
+            switcher.setChecked(isDefault);
+            switcher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+                    if(switcher.isChecked()) {
+                        editor.putBoolean("default_screen", true);
+                        editor.apply();
+                    }else {
+                        editor.putBoolean("default_screen", false);
+                        editor.apply();
+                    }
+                }
+            });
         }
 
         actionbarLayout = findViewById(R.id.actionBar);
@@ -266,7 +291,6 @@ public class App extends AppCompatActivity implements LocationListener {
 
         setNavigationViewListner();
 
-        Log.d("screensizze", getScreenHeightInDPs(getApplicationContext()) + "");
 
         mListView = (ListView) findViewById( R.id.main_page_list_view );
 
@@ -284,8 +308,6 @@ public class App extends AppCompatActivity implements LocationListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
         currentSubstance = getMaxPopulationSubstance();
 
@@ -578,12 +600,13 @@ public class App extends AppCompatActivity implements LocationListener {
         xAxis.setPosition(XAxis.XAxisPosition.TOP);
         //Customizing x axis value
 
-
-
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return months[(int) value];
+
+                if(months.length > (int) value) {
+                    return months[(int) value];
+                } else return null;
             }
         };
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
@@ -838,6 +861,7 @@ public class App extends AppCompatActivity implements LocationListener {
         }
 
 
+
         JSONObject jsonObject = new JSONObject(currentStation);
         JSONArray eqip = jsonObject.getJSONArray("stationequipment_set");
 
@@ -1040,6 +1064,14 @@ public class App extends AppCompatActivity implements LocationListener {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.station_map:
+                Intent intent = new Intent(App.this, MapActivity.class);
+                intent.putExtra("data",data);
+                intent.putExtra("lat", lastKnownLocation.getLatitude());
+                intent.putExtra("long", lastKnownLocation.getLongitude());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
+                return true;
         }
         return true;
     }
@@ -1210,6 +1242,7 @@ public class App extends AppCompatActivity implements LocationListener {
             Location bestLocation = null;
             for (String provider : providers) {
                 Location l = locationManager.getLastKnownLocation(provider);
+//                Log.d("location service",l.toString());
                 if (l == null) {
                     continue;
                 }
@@ -1343,6 +1376,18 @@ public class App extends AppCompatActivity implements LocationListener {
                     intent.putExtra("url", url + "?no_header_footer=true");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
+                }else if (item.getItemId()  == R.id.nav_switch) {
+                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+                    if(switcher.isChecked()) {
+                        editor.putBoolean("default_screen", false);
+                        editor.apply();
+                        Log.d("moinshnas","false");
+                    }else {
+                        editor.putBoolean("default_screen", true);
+                        editor.apply();
+                        Log.d("moinshnas","true");
+                    }
+                    switcher.setChecked(!switcher.isChecked());
                 }
                 return true;
             }

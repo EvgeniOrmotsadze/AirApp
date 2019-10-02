@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     tools:showIn="navigation_view">
 
     <group
@@ -30,6 +31,12 @@
             android:title="@string/Pollutants"/>
     </group>
 
-    <group android:id="@+id/group_settings5">
-    </group>
+
+        <group android:checkableBehavior="single">
+            <item android:id="@+id/nav_switch"
+                app:actionLayout="@layout/action_view_layout"
+
+                android:title="Default Screen" />
+        </group>
+
 </menu>

@@ -28,14 +28,22 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Map"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="100sp"
+
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:text="@string/toolbar_header"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 

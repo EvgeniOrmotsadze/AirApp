@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,18 +24,28 @@ public class DetectConnection extends AppCompatActivity {
         setContentView(R.layout.load_activity);
         TextView textView = findViewById(R.id.internet_conn);
         textView.setVisibility(View.VISIBLE);
+        Log.d("recreatebichi","yess");
 
-        if(handler == null)
-            handler = new Handler();
-
-        handler.postDelayed(new Runnable()
-        {
+        Thread t = new Thread() {
             @Override
-            public void run()
-            {
-                recreate();
+            public void run() {
+                try {
+                    //check if connected!
+                    while (!isConnected(DetectConnection.this)) {
+                        //Wait to connect
+                        Thread.sleep(3000);
+                    }
+
+                        Intent i = new Intent(DetectConnection.this, LoadActivity.class);
+                        overridePendingTransition(0, 0);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(i);
+
+                } catch (Exception e) {
+                }
             }
-        }, 10);
+        };
+        t.start();
 
 
     }

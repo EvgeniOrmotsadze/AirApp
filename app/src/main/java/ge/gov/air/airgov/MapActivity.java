@@ -425,4 +425,14 @@ public class MapActivity  extends AppCompatActivity implements OnMapReadyCallbac
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+//        Intent intent = new Intent(App.this, LoadActivity.class);
+//        startActivity(intent);
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
 }
