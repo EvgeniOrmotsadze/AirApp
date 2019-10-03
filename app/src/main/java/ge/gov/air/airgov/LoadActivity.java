@@ -150,7 +150,6 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
         } else {
             long secondsElapsed = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - locationUpdatedAt);
             if (secondsElapsed >= TimeUnit.MILLISECONDS.toSeconds(FASTEST_INTERVAL)){
-                // check location accuracy here
                 lastKnownLocation = location;
                 locationUpdatedAt = System.currentTimeMillis();
             }
