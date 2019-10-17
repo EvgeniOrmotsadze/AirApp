@@ -1,7 +1,9 @@
 package ge.gov.air.airgov;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,11 +16,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -50,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 
 import ge.gov.air.airgov.model.Stations;
 
-public class LoadActivity extends AppCompatActivity implements LocationListener {
+public class LoadActivity extends Activity implements LocationListener {
 
     String data;
     protected LocationManager locationManager;
@@ -60,15 +64,80 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_activity);
-
         TextView textView = findViewById(R.id.internet_conn);
         textView.setVisibility(View.GONE);
-
-
-        if(checkLocationPermission()){
-            continueAcitvity();
+        if(checkLocationIsEnablad()) {
+            if (checkLocationPermission()) {
+                continueAcitvity();
+            }
+        }else {
+            showEnebleSignal();
+          //  getApplicationContext().startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(checkLocationIsEnablad()) {
+            if (checkLocationPermission()) {
+                continueAcitvity();
+            }
+        }else {
+            showEnebleSignal();
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(checkLocationIsEnablad()) {
+            if (checkLocationPermission()) {
+                continueAcitvity();
+            }
+        }else {
+            showEnebleSignal();
+        }
+    }
+
+    private void showEnebleSignal(){
+        SharedPreferences prefs = getSharedPreferences("pref", MODE_PRIVATE);
+        String restoredText = prefs.getString("lang", null);
+        boolean isGeorgian = false;
+        if(restoredText != null) {
+            if (restoredText.equals("ka")) {
+                isGeorgian = true;
+            }
+        }
+        Toast.makeText(this, isGeorgian? "გთხოვთ ჩართეთ ლოქეიშენი " : "Please Enable Location ", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkLocationIsEnablad(){
+       locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+       boolean gps_enabled = false;
+       boolean network_enabled = false;
+        try {
+            gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        return gps_enabled;
+
+//            );
+//            new AlertDialog.Builder(this)
+//                    .setMessage("Location Not")
+//                    .setPositiveButton("hello", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+//
+//                        }
+//                    }).setNegativeButton
+//                    ("Cancel",null)
+//                            .show();
 
     }
 
@@ -159,21 +228,25 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
+//        if(checkLocationIsEnablad()) {
+//            if (checkLocationPermission()) {
+//                continueAcitvity();
+//            }
+//        }
     }
 
     @Override
     public void onProviderEnabled(String s) {
+        if(checkLocationIsEnablad()) {
+            if (checkLocationPermission()) {
+                continueAcitvity();
+            }
+        }
     }
 
     @Override
     public void onProviderDisabled(String s) {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
+       showEnebleSignal();
     }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -322,7 +395,6 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
             Location bestLocation = null;
             for (String provider : providers) {
                 Location l = locationManager.getLastKnownLocation(provider);
-//                Log.d("location service",l.toString());
                 if (l == null) {
                     continue;
                 }
@@ -331,7 +403,7 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
                 }
             }
             lastKnownLocation = bestLocation;
-
+            Log.d("currlocation",lastKnownLocation.toString());
         }
         catch(SecurityException e) {
             e.printStackTrace();
@@ -347,7 +419,7 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    continueAcitvity();
+
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -361,6 +433,7 @@ public class LoadActivity extends AppCompatActivity implements LocationListener 
                             startActivity(intent);
                             getLocation();
                         }
+                    //    continueAcitvity();
                     }
 
                 } else {

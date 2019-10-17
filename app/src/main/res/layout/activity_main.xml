@@ -523,7 +523,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@color/populationColor"/>
+                    android:background="@color/nodata"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

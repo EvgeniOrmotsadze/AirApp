@@ -26,4 +26,5 @@
     <color name="moderate">#f0e641</color>
     <color name="poor">#fa504f</color>
     <color name="very_poor">#960432</color>
+    <color name="nodata">#C0C0C0</color>
 </resources>

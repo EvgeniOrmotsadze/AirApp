@@ -10,7 +10,7 @@
 
     <item android:id="@+id/station_map"
 
-        android:icon="@drawable/maps"
+        android:icon="@drawable/planet"
         app:showAsAction="always"
         android:iconTint="@color/chartFillColor"/>
 

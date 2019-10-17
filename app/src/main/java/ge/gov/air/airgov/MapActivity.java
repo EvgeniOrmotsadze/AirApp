@@ -10,12 +10,23 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +47,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -56,6 +70,10 @@ public class MapActivity  extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private String data;
 
+    private ActionBar actionbar;
+    private DrawerLayout drawerLayout;
+    private SwitchCompat switcher;
+
     private boolean isGeorgian;
 
     private Location currentLocation;
@@ -73,9 +91,52 @@ public class MapActivity  extends AppCompatActivity implements OnMapReadyCallbac
         setSupportActionBar(myToolbar);
         setTitle(null);
 
+        myToolbar.setBackgroundColor(getResources().getColor(R.color.white));
+        actionbar = getSupportActionBar();
+        Drawable menuIcon = getResources().getDrawable(R.mipmap.white_menu_icon);
+        menuIcon.mutate();
+        menuIcon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(menuIcon);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setItemIconTintList(null);
+        if (navigationView != null) {
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.language).setIcon(isGeorgian?R.drawable.english:R.drawable.georgia);
+
+            MenuItem menuItem = menu.findItem(R.id.nav_switch);
+            View actionView = MenuItemCompat.getActionView(menuItem);
+            switcher = (SwitchCompat) actionView.findViewById(R.id.switcher);
+            SharedPreferences prefs2 = getSharedPreferences("pref", MODE_PRIVATE);
+            boolean isDefault = prefs2.getBoolean("default_screen",false);
+            Log.d("isDefault",isDefault+"");
+            switcher.setChecked(isDefault);
+            switcher.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+                    if(switcher.isChecked()) {
+                        editor.putBoolean("default_screen", true);
+                        editor.apply();
+                    }else {
+                        editor.putBoolean("default_screen", false);
+                        editor.apply();
+                    }
+                }
+            });
+        }
+
+        setNavigationViewListner();
 
         myToolbar.setBackgroundColor(getResources().getColor(R.color.white));
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, myToolbar, R.string.common_google_play_services_update_button, R.string.bottom_sheet_behavior);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         data = this.getIntent().getStringExtra("data");
 
@@ -415,7 +476,7 @@ public class MapActivity  extends AppCompatActivity implements OnMapReadyCallbac
         switch (itemId) {
             // Android home
             case android.R.id.home:
-              //  drawerLayout.openDrawer(GravityCompat.START);
+                drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.bla:
                 Intent intent = new Intent(MapActivity.this, App.class);
@@ -456,5 +517,71 @@ public class MapActivity  extends AppCompatActivity implements OnMapReadyCallbac
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
+    }
+
+    private void setNavigationViewListner() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId() == R.id.language) {
+                    String displayLanguage = Locale.getDefault().getDisplayLanguage();
+
+                    SharedPreferences prefs = getSharedPreferences("pref", MODE_PRIVATE);
+                    String restoredText = prefs.getString("lang", null);
+                    if (restoredText == null) {
+                        restoredText = "en";
+                    }
+
+                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+                    if (restoredText.equals("en")){
+                        changeLanguage("ka");
+                        editor.putString("lang", "ka");
+                        editor.apply();
+                    }else {
+                        changeLanguage("en");
+                        editor.putString("lang", "en");
+                        editor.apply();
+                    }
+                    reload();
+
+                }else if(item.getItemId() == R.id.recomendation){
+                    Intent intent = new Intent(MapActivity.this, WebViewAct.class);
+                    String url = isGeorgian ? "file:///android_asset/html/recommendations_ka.html" : "file:///android_asset/html/recommendations_en.html";
+                    intent.putExtra("url", url+"?no_header_footer=true");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }else  if(item.getItemId() == R.id.pollutant){
+                    Intent intent = new Intent(MapActivity.this, WebViewAct.class);
+                    String url = isGeorgian ? "file:///android_asset/html/pollutants_ka.html" : "file:///android_asset/html/pollutants_en.html";
+                    intent.putExtra("url", url + "?no_header_footer=true");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }else if (item.getItemId()  == R.id.nav_switch) {
+                    SharedPreferences.Editor editor = getSharedPreferences("pref", MODE_PRIVATE).edit();
+                    if(switcher.isChecked()) {
+                        editor.putBoolean("default_screen", false);
+                        editor.apply();
+                        Log.d("moinshnas","false");
+                    }else {
+                        editor.putBoolean("default_screen", true);
+                        editor.apply();
+                        Log.d("moinshnas","true");
+                    }
+                    switcher.setChecked(!switcher.isChecked());
+                }
+                return true;
+            }
+        });
+    }
+
+    public void changeLanguage(String lang){
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 }

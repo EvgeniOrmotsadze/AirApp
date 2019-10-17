@@ -20,4 +20,5 @@
     <string name="very_poor">Very Poor</string>
     <string name="Air_Quality_Index">Air Quality Index</string>
     <string name="selected">selected</string>
+    <string name="defualtScreen">Default Screen</string>
 </resources>
