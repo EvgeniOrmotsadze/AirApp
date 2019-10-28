@@ -163,8 +163,7 @@ public class LoadActivity extends Activity implements LocationListener {
         Date lst = new Date(lastTime);
         Date nowTime = new Date();
 
-//        Log.d("timess", lst.toString() + " now :" +new Date(nowTime.getTime() - (20 * 60000)).toString());
-
+        getLocation();
         if(!lst.before(new Date(nowTime.getTime() - (20 * 60000))) && data != null){
             chooseActivityForLoading();
         }else {
@@ -269,6 +268,7 @@ public class LoadActivity extends Activity implements LocationListener {
     }
 
     private void chooseActivityForLoading() {
+
         List<Stations> list = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -381,7 +381,6 @@ public class LoadActivity extends Activity implements LocationListener {
 
             return false;
         } else {
-            getLocation();
             return true;
         }
     }
@@ -403,11 +402,17 @@ public class LoadActivity extends Activity implements LocationListener {
                 }
             }
             lastKnownLocation = bestLocation;
-            Log.d("currlocation",lastKnownLocation.toString());
+            Log.d("loc",lastKnownLocation.toString());
         }
         catch(SecurityException e) {
             e.printStackTrace();
+        }catch (NullPointerException e){
+            Log.d("comes here","here");
+            if(lastKnownLocation == null)
+                getLocation();
+            return;
         }
+
     }
 
     @Override
